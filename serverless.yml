@@ -3,6 +3,7 @@ service:
 
 plugins:
   - serverless-webpack
+  - serverless-stage-manager
   # - serverless-aws-documentation
   # - serverless-reqvalidator-plugin
   # - serverless-iam-roles-per-function
@@ -10,8 +11,18 @@ plugins:
 provider:
   name: aws
   runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'ap-southeast-1'}
+
+custom:
+  stages:
+    - dev
+    - production
 
 functions:
   hello:
     handler: hello.handler
+    events:
+      - http:
+          method: get
+          path: hello
