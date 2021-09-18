@@ -1,0 +1,17 @@
+service:
+  name: ecommly-api
+
+plugins:
+  - serverless-webpack
+  # - serverless-aws-documentation
+  # - serverless-reqvalidator-plugin
+  # - serverless-iam-roles-per-function
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ${opt:region, 'ap-southeast-1'}
+
+functions:
+  hello:
+    handler: hello.handler
