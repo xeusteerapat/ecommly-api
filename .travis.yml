@@ -1,0 +1,41 @@
+language: node_js
+node_js:
+  - "14"
+
+deploy_service_job: &DEPLOY_SERVICE_JOB
+  # cache:
+  #   directories:
+  #     - node_modules
+
+  install:
+    - npm install -g serverless
+    - npm install
+
+  script:
+    - serverless deploy -s ${STAGE_NAME}
+
+environments:
+  - &PRODUCTION_ENV
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_PROD}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY_PROD}
+
+  - &DEVELOPMENT_ENV
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_DEV}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY_DEV}
+
+jobs:
+  include:
+# non-master branches deploys to stage named by the branch
+    - <<: *DEPLOY_SERVICE_JOB
+      name: "Deploy Users API"
+      if: type = push AND branch = develop
+      env:
+        - STAGE_NAME=develop
+        - *DEVELOPMENT_ENV
+# master branch deploys to the 'prod' stage
+    - <<: *DEPLOY_SERVICE_JOB
+      name: "Deploy Users API"
+      if: type = push AND branch = master
+      env:
+        - STAGE_NAME=production
+        - *PRODUCTION_ENV
