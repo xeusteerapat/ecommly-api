@@ -26,3 +26,9 @@ functions:
       - http:
           method: get
           path: hello
+  products:
+    handler: src/lambda/products/getProducts.handler
+    events:
+      - http:
+          method: get
+          path: products
