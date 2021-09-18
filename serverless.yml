@@ -11,12 +11,12 @@ plugins:
 provider:
   name: aws
   runtime: nodejs14.x
-  stage: ${opt:stage, 'dev'}
+  stage: ${opt:stage, 'develop'}
   region: ${opt:region, 'ap-southeast-1'}
 
 custom:
   stages:
-    - dev
+    - develop
     - production
 
 functions:
