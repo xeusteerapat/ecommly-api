@@ -34,6 +34,18 @@ functions:
       - http:
           method: get
           path: hello
+  signup:
+    handler: src/lambda/auth/signup.handler
+    events:
+      - http:
+          method: post
+          path: signup
+  signin:
+    handler: src/lambda/auth/signin.handler
+    events:
+      - http:
+          method: post
+          path: signin
   products:
     handler: src/lambda/products/getProducts.handler
     events:
