@@ -1,0 +1,157 @@
+# Products table
+productsTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    AttributeDefinitions:
+      - AttributeName: "productId"
+        AttributeType: "S"
+    BillingMode: "PAY_PER_REQUEST"
+    KeySchema:
+      - AttributeName: "productId"
+        KeyType: "HASH"
+    TableName: ${self:provider.environment.PRODUCTS_TABLE}
+    Tags:
+      - Key: Name
+        Value: products-table
+
+# Orders table
+ordersTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    AttributeDefinitions:
+      - AttributeName: "userId" # we can lookup all the orders by userId
+        AttributeType: "S"
+      - AttributeName: "orderId"
+        AttributeType: "S"
+      - AttributeName: "productId"
+        AttributeType: "S"
+      - AttributeName: "createdAt"
+        AttributeType: "S"
+    BillingMode: "PAY_PER_REQUEST"
+    KeySchema:
+      - AttributeName: "userId"
+        KeyType: "HASH"
+      - AttributeName: "orderId"
+        KeyType: "RANGE"
+    GlobalSecondaryIndexes: # we need global secondary index to query by productId
+      - IndexName: "byOrder"
+        KeySchema:
+          - AttributeName: "productId"
+            KeyType: "HASH"
+          - AttributeName: "createdAt"
+            KeyType: "RANGE"
+        Projection:
+          ProjectionType: ALL
+    TableName: ${self:provider.environment.ORDERS_TABLE}
+    Tags:
+      - Key: Name
+        Value: orders-table
+
+# Cognito User pool
+cognitoUserPool:
+  Type: AWS::Cognito::UserPool
+  Properties:
+    UsernameAttributes:
+      - email
+    UserPoolName: ecommly-userpool-${self:provider.stage}
+
+# Cognito User Pool Client
+cognitoUserPoolClient:
+  Type: AWS::Cognito::UserPoolClient
+  Properties:
+    ClientName: Web-${self:provider.stage}-client
+    UserPoolId: !Ref cognitoUserPool # refer to cognito user pool as above which returns user-pool-id
+
+# Cognito User Pool Group (Admin)
+cognitoAdminGroup:
+  Type: AWS::Cognito::UserPoolGroup
+  Properties:
+    Description: "Admin users belongs to this group"
+    GroupName: Admin-${self:provider.stage}
+    Precedence: 0 # Highest priority
+    RoleArn: !GetAtt cognitoAdminIAMRole.Arn
+    UserPoolId: !Ref cognitoUserPool
+
+# Cognito Admin IAM Role
+cognitoAdminIAMRole:
+  Type: AWS::IAM::Role
+  Properties:
+    AssumeRolePolicyDocument:
+      Version: "2012-10-17"
+      Statement:
+        - Effect: Allow
+          Principal: # specify who can assume this role
+            Federated:
+              - "cognito-identity.amazonaws.com"
+          Action:
+            - "sts:AssumeRoleWithWebIdentity"
+    Description: "This is IAM Role that admin group users assume"
+    Policies:
+      - PolicyName: ecommly-admin-group-policy-${self:provider.stage}
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - "dynamodb:*"
+              Resource:
+                - !GetAtt productsTable.Arn
+                - !GetAtt ordersTable.Arn
+    RoleName: ecommly-admin-role-${self:provider.stage}
+
+# Cognito User Pool Group (Customer)
+cognitoCustomerGroup:
+  Type: AWS::Cognito::UserPoolGroup
+  Properties:
+    Description: "Customers users belongs to this group"
+    GroupName: Customer-${self:provider.stage}
+    Precedence: 1
+    RoleArn: !GetAtt cognitoCustomerIAMRole.Arn
+    UserPoolId: !Ref cognitoUserPool
+
+# Cognito Customer IAM Role
+cognitoCustomerIAMRole:
+  Type: AWS::IAM::Role
+  Properties:
+    AssumeRolePolicyDocument:
+      Version: "2012-10-17"
+      Statement:
+        - Effect: Allow
+          Principal: # specify who can assume this role
+            Federated:
+              - "cognito-identity.amazonaws.com"
+          Action:
+            - "sts:AssumeRoleWithWebIdentity"
+    Description: "This is IAM Role that customer group users assume"
+    Policies:
+      - PolicyName: ecommly-customer-group-policy-${self:provider.stage}
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - "dynamodb:*"
+              Resource:
+                - !GetAtt ordersTable.Arn # customer can only create order
+            - Effect: Allow
+              Action:
+                - "dynamodb:GetItem"
+                - "dynamodb:Query"
+                - "dynamodb:BatchGetItem"
+              Resource:
+                - !GetAtt productsTable.Arn # customer can only create order
+    RoleName: ecommly-customer-role-${self:provider.stage}
+
+# API Gateway AUthorizer
+ApiGatewayAuthorizer:
+  DependsOn:
+    - ApiGatewayRestApi
+  Type: AWS::ApiGateway::Authorizer
+  Properties:
+    Name: cognito-authorizer-${self:provider.stage}
+    IdentitySource: method.request.header.Authorization
+    RestApiId:
+      Ref: ApiGatewayRestApi
+    Type: COGNITO_USER_POOLS
+    ProviderARNs:
+      - Fn::GetAtt: [cognitoUserPool, Arn]
