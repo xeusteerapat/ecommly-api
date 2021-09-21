@@ -13,6 +13,14 @@ provider:
   runtime: nodejs14.x
   stage: ${opt:stage, 'develop'}
   region: ${opt:region, 'ap-southeast-1'}
+  environment:
+    IMAGES_BUCKET_NAME: ecommly-images-${self:provider.stage}
+    SIGNED_URL_EXPIRATION: 300
+    PRODUCTS_TABLE: Products-${self:provider.stage}
+    ORDERS_TABLE: Orders-${self:provider.stage}
+  tracing:
+    apiGateway: true
+    lambda: true
 
 custom:
   stages:
@@ -32,3 +40,11 @@ functions:
       - http:
           method: get
           path: products
+          cors: true
+          authorizer:
+            type: cognitoUserPool
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+
+resources:
+  Resources: ${file(./src/resources/resources.yml)}
