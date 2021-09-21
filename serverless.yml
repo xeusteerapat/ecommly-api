@@ -42,7 +42,7 @@ functions:
           path: products
           cors: true
           authorizer:
-            type: cognitoUserPool
+            type: COGNITO_USER_POOLS
             authorizerId:
               Ref: ApiGatewayAuthorizer
 
