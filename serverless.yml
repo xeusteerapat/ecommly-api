@@ -40,7 +40,7 @@ functions:
     events:
       - http:
           method: get
-          path: hello
+          path: hello`
   signup:
     handler: src/lambda/auth/signup.handler
     events:
@@ -53,6 +53,12 @@ functions:
       - http:
           method: post
           path: signin
+  postConfirmed:
+    handler: src/lambda/auth/postConfirmed.handler
+    events:
+      - http:
+          method: post
+          path: confirmed
   products:
     handler: src/lambda/products/getProducts.handler
     events:
