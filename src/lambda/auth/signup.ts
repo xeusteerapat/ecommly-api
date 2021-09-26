@@ -21,47 +21,41 @@ AWS.config.update({
 });
 
 async function registerUser(body: SignUpRequest) {
-  const { telephoneNumber, confirmationCode, password } = body;
+  const { email, password, phoneNumber } = body;
 
   return new Promise(resolve => {
     let attributesList = [];
 
     attributesList.push(
       new AmazonCognitoIdentity.CognitoUserAttribute({
-        Name: "phone_number",
-        Value: telephoneNumber,
+        Name: "email",
+        Value: email,
       })
     );
 
     attributesList.push(
       new AmazonCognitoIdentity.CognitoUserAttribute({
-        Name: "custom:confirmationCode",
-        Value: confirmationCode,
+        Name: "phone_number",
+        Value: phoneNumber,
       })
     );
 
     const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
-    userPool.signUp(
-      telephoneNumber,
-      password,
-      attributesList,
-      null,
-      function (err) {
-        if (err) {
-          return resolve({
-            statusCode: 500,
-            err,
-          });
-        }
-
-        resolve({
-          statusCode: 200,
-          confirmationCode,
-          message: "User successfully registered",
+    userPool.signUp(email, password, attributesList, null, function (err) {
+      if (err) {
+        return resolve({
+          statusCode: 500,
+          err,
         });
       }
-    );
+
+      resolve({
+        statusCode: 200,
+        email,
+        message: "User successfully registered",
+      });
+    });
   });
 }
 
