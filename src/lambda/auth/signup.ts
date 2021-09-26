@@ -9,7 +9,7 @@ import { createLogger } from "./../../utils/logger";
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { SignUpRequest } from "../../models/signupRequest";
 
-const logger = createLogger("Get-Products");
+const logger = createLogger("Signup-User");
 
 const poolData = {
   UserPoolId: process.env.USER_POOL_ID,
@@ -44,6 +44,8 @@ async function registerUser(body: SignUpRequest) {
 
     userPool.signUp(email, password, attributesList, null, function (err) {
       if (err) {
+        logger.error("Error Signup user:", err);
+
         return resolve({
           statusCode: 500,
           err,
