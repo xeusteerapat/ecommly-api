@@ -14,10 +14,14 @@ provider:
   stage: ${opt:stage, 'develop'}
   region: ${opt:region, 'ap-southeast-1'}
   environment:
+    REGION: ${self:provider.region}
     IMAGES_BUCKET_NAME: ecommly-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
     PRODUCTS_TABLE: Products-${self:provider.stage}
     ORDERS_TABLE: Orders-${self:provider.stage}
+    TEST_SECRET: ${self:custom.TEST_SECRET}
+    USER_POOL_ID: ${self:custom.USER_POOL_ID}
+    USER_POOL_CLIENT_ID: ${self:custom.USER_POOL_CLIENT_ID}
   tracing:
     apiGateway: true
     lambda: true
@@ -26,6 +30,9 @@ custom:
   stages:
     - develop
     - production
+  TEST_SECRET: ${ssm:test-${self:provider.stage}-secret}
+  USER_POOL_ID: ${ssm:userpool-${self:provider.stage}-id}
+  USER_POOL_CLIENT_ID: ${ssm:client-${self:provider.stage}-id}
 
 functions:
   hello:
@@ -46,6 +53,12 @@ functions:
       - http:
           method: post
           path: signin
+  postConfirmed:
+    handler: src/lambda/auth/postConfirmed.handler
+    events:
+      - http:
+          method: post
+          path: confirmed
   products:
     handler: src/lambda/products/getProducts.handler
     events:

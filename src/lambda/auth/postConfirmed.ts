@@ -7,9 +7,9 @@ import {
 import "source-map-support/register";
 import { createLogger } from "./../../utils/logger";
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { SignUpRequest } from "../../models/signupRequest";
+import { ConfirmRequest } from "../../models/postConfirmRequest";
 
-const logger = createLogger("Signup-User");
+const logger = createLogger("Verification-User");
 
 const poolData = {
   UserPoolId: process.env.USER_POOL_ID,
@@ -20,43 +20,27 @@ AWS.config.update({
   region: process.env.REGION,
 });
 
-async function registerUser(body: SignUpRequest) {
-  const { email, password, phoneNumber } = body;
+async function registerUser(body: ConfirmRequest) {
+  const { email, verificationCode } = body;
 
   return new Promise(resolve => {
-    let attributesList = [];
-
-    attributesList.push(
-      new AmazonCognitoIdentity.CognitoUserAttribute({
-        Name: "email",
-        Value: email,
-      })
-    );
-
-    attributesList.push(
-      new AmazonCognitoIdentity.CognitoUserAttribute({
-        Name: "phone_number",
-        Value: phoneNumber,
-      })
-    );
-
     const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
-    userPool.signUp(email, password, attributesList, null, function (err) {
-      if (err) {
-        logger.error("Error Signup user:", err);
+    const userData = {
+      Username: email,
+      Pool: userPool,
+    };
 
-        return resolve({
-          statusCode: 500,
-          err,
-        });
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+
+    cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
+      if (err) {
+        logger.error("Error verification account: ", err);
+
+        return resolve({ statusCode: 422, response: err });
       }
 
-      resolve({
-        statusCode: 200,
-        email,
-        message: "User successfully registered",
-      });
+      return resolve({ statusCode: 200, response: result });
     });
   });
 }
@@ -64,7 +48,7 @@ async function registerUser(body: SignUpRequest) {
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  logger.info("Signup user event: ", event);
+  logger.info("Verification-User: ", event);
 
   const body = JSON.parse(event.body);
 
