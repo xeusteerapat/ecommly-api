@@ -21,7 +21,7 @@ export const handler: APIGatewayProxyHandler = async (
       "Access-Control-Allow-Origin": "*",
     },
     body: JSON.stringify({
-      message: "Hello, from Ecommly",
+      message: `Hello, from Ecommly ${process.env.TEST_SECRET}`,
     }),
   };
 };
