@@ -33,23 +33,14 @@ async function registerUser(body: ConfirmRequest) {
 
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
 
-    cognitoUser.getAttributeVerificationCode("email", {
-      onSuccess: function (result) {
-        resolve({
-          statusCode: 200,
-          result,
-        });
-      },
-      onFailure: function (err) {
-        logger.error("Error confirmmation account:", err);
-        resolve({
-          statusCode: 500,
-          err,
-        });
-      },
-      inputVerificationCode: function () {
-        cognitoUser.verifyAttribute("email", verificationCode, this);
-      },
+    cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
+      if (err) {
+        logger.error("Error verification account: ", err);
+
+        return resolve({ statusCode: 422, response: err });
+      }
+
+      return resolve({ statusCode: 200, response: result });
     });
   });
 }
