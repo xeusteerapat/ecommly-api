@@ -18,6 +18,7 @@ provider:
     SIGNED_URL_EXPIRATION: 300
     PRODUCTS_TABLE: Products-${self:provider.stage}
     ORDERS_TABLE: Orders-${self:provider.stage}
+    TEST_SECRET: ${self:custom.TEST_SECRET}
   tracing:
     apiGateway: true
     lambda: true
@@ -26,6 +27,7 @@ custom:
   stages:
     - develop
     - production
+  TEST_SECRET: ${ssm:test-${self:provider.stage}-secret}
 
 functions:
   hello:
