@@ -3,6 +3,7 @@ import {
   APIGatewayProxyEvent,
   APIGatewayProxyHandler,
   APIGatewayProxyResult,
+  Context,
 } from "aws-lambda";
 import "source-map-support/register";
 import { createLogger } from "./../../utils/logger";
@@ -24,7 +25,7 @@ const cognitoISP = new AWS.CognitoIdentityServiceProvider({
   apiVersion: "2016-04-18",
 });
 
-async function registerUser(body: ConfirmRequest) {
+async function registerUser(body: ConfirmRequest, context: Context) {
   const { email, verificationCode } = body;
 
   return new Promise(resolve => {
@@ -44,13 +45,13 @@ async function registerUser(body: ConfirmRequest) {
         return resolve({ statusCode: 422, response: err });
       }
 
+      context.callbackWaitsForEmptyEventLoop = true;
+
       const params = {
         GroupName: process.env.CUSTOMER_GROUP,
         UserPoolId: process.env.USER_POOL_ID,
         Username: email,
       };
-
-      console.log("----------BEFORE_ADD------------");
 
       cognitoISP.adminAddUserToGroup(params, (err, resultAddUser) => {
         if (err) {
@@ -59,7 +60,6 @@ async function registerUser(body: ConfirmRequest) {
 
         logger.info("Success add new user to group", resultAddUser);
       });
-      console.log("----------AFTER_ADD------------");
 
       return resolve({ statusCode: 200, response: result });
     });
@@ -67,13 +67,14 @@ async function registerUser(body: ConfirmRequest) {
 }
 
 export const handler: APIGatewayProxyHandler = async (
-  event: APIGatewayProxyEvent
+  event: APIGatewayProxyEvent,
+  context: Context
 ): Promise<APIGatewayProxyResult> => {
   logger.info("Verification-User: ", event);
 
   const body = JSON.parse(event.body);
 
-  const result = await registerUser(body);
+  const result = await registerUser(body, context);
 
   return {
     statusCode: 201,
