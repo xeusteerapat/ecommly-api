@@ -38,31 +38,36 @@ async function registerUser(body: ConfirmRequest, context: Context) {
 
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
 
-    cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
-      if (err) {
-        logger.error("Error verification account: ", err);
-
-        return resolve({ statusCode: 422, response: err });
-      }
-
-      context.callbackWaitsForEmptyEventLoop = true;
-
-      const params = {
-        GroupName: process.env.CUSTOMER_GROUP,
-        UserPoolId: process.env.USER_POOL_ID,
-        Username: email,
-      };
-
-      cognitoISP.adminAddUserToGroup(params, (err, resultAddUser) => {
+    cognitoUser.confirmRegistration(
+      verificationCode,
+      true,
+      async (err, result) => {
         if (err) {
-          logger.error("Error add user to group:", err);
+          logger.error("Error verification account: ", err);
+
+          return resolve({ statusCode: 422, response: err });
         }
 
-        logger.info("Success add new user to group", resultAddUser);
-      });
+        context.callbackWaitsForEmptyEventLoop = true;
 
-      return resolve({ statusCode: 200, response: result });
-    });
+        const params = {
+          GroupName: process.env.CUSTOMER_GROUP,
+          UserPoolId: process.env.USER_POOL_ID,
+          Username: email,
+        };
+
+        // cognitoISP.adminAddUserToGroup(params, (err, resultAddUser) => {
+        //   if (err) {
+        //     logger.error("Error add user to group:", err);
+        //   }
+
+        //   logger.info("Success add new user to group", resultAddUser);
+        // });
+        await cognitoISP.adminAddUserToGroup(params).promise();
+
+        return resolve({ statusCode: 200, response: result });
+      }
+    );
   });
 }
 
