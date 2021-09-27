@@ -20,6 +20,10 @@ AWS.config.update({
   region: process.env.REGION,
 });
 
+const cognitoISP = new AWS.CognitoIdentityServiceProvider({
+  apiVersion: "2016-04-18",
+});
+
 async function registerUser(body: ConfirmRequest) {
   const { email, verificationCode } = body;
 
@@ -39,6 +43,20 @@ async function registerUser(body: ConfirmRequest) {
 
         return resolve({ statusCode: 422, response: err });
       }
+
+      const params = {
+        GroupName: process.env.CUSTOMER_GROUP /* required */,
+        UserPoolId: process.env.USER_POOL_ID /* required */,
+        Username: email /* required */,
+      };
+
+      cognitoISP.adminAddUserToGroup(params, (err, resultAddUser) => {
+        if (err) {
+          logger.error("Error add user to group:", err);
+        }
+
+        logger.info("Success add new user to group", resultAddUser);
+      });
 
       return resolve({ statusCode: 200, response: result });
     });
