@@ -147,8 +147,7 @@ cognitoCustomerIAMRole:
             - Effect: Allow
               Action:
                 - cognito-idp:AdminAddUserToGroup
-              Resource:
-                Fn::GetAtt: "*"
+              Resource: "*"
     RoleName: ecommly-customer-role-${self:provider.stage}
 
 # API Gateway AUthorizer
