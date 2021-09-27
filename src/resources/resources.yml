@@ -100,8 +100,7 @@ cognitoAdminIAMRole:
             - Effect: Allow
               Action:
                 - cognito-idp:AdminAddUserToGroup
-              Resource:
-                Fn::GetAtt: [cognitoUserPool, Arn]
+              Resource: "*"
     RoleName: ecommly-admin-role-${self:provider.stage}
 
 # Cognito User Pool Group (Customer)
@@ -149,7 +148,7 @@ cognitoCustomerIAMRole:
               Action:
                 - cognito-idp:AdminAddUserToGroup
               Resource:
-                Fn::GetAtt: [cognitoUserPool, Arn]
+                Fn::GetAtt: "*"
     RoleName: ecommly-customer-role-${self:provider.stage}
 
 # API Gateway AUthorizer
