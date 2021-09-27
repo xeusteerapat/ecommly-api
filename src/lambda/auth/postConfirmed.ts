@@ -45,10 +45,12 @@ async function registerUser(body: ConfirmRequest) {
       }
 
       const params = {
-        GroupName: process.env.CUSTOMER_GROUP /* required */,
-        UserPoolId: process.env.USER_POOL_ID /* required */,
-        Username: email /* required */,
+        GroupName: process.env.CUSTOMER_GROUP,
+        UserPoolId: process.env.USER_POOL_ID,
+        Username: email,
       };
+
+      console.log("----------BEFORE_ADD------------");
 
       cognitoISP.adminAddUserToGroup(params, (err, resultAddUser) => {
         if (err) {
@@ -57,6 +59,7 @@ async function registerUser(body: ConfirmRequest) {
 
         logger.info("Success add new user to group", resultAddUser);
       });
+      console.log("----------AFTER_ADD------------");
 
       return resolve({ statusCode: 200, response: result });
     });
