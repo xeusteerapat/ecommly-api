@@ -97,6 +97,11 @@ cognitoAdminIAMRole:
               Resource:
                 - !GetAtt productsTable.Arn
                 - !GetAtt ordersTable.Arn
+            - Effect: Allow
+              Action:
+                - cognito-idp:AdminAddUserToGroup
+              Resource:
+                Fn::GetAtt: [cognitoUserPool, Arn]
     RoleName: ecommly-admin-role-${self:provider.stage}
 
 # Cognito User Pool Group (Customer)
@@ -140,6 +145,11 @@ cognitoCustomerIAMRole:
                 - "dynamodb:BatchGetItem"
               Resource:
                 - !GetAtt productsTable.Arn # customer can only create order
+            - Effect: Allow
+              Action:
+                - cognito-idp:AdminAddUserToGroup
+              Resource:
+                Fn::GetAtt: [cognitoUserPool, Arn]
     RoleName: ecommly-customer-role-${self:provider.stage}
 
 # API Gateway AUthorizer
