@@ -22,6 +22,8 @@ provider:
     TEST_SECRET: ${self:custom.TEST_SECRET}
     USER_POOL_ID: ${self:custom.USER_POOL_ID}
     USER_POOL_CLIENT_ID: ${self:custom.USER_POOL_CLIENT_ID}
+    ADMIN_GROUP: Admin-${self:provider.stage}
+    CUSTOMER_GROUP: Customer-${self:provider.stage}
   tracing:
     apiGateway: true
     lambda: true
