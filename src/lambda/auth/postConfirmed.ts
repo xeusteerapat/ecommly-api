@@ -3,6 +3,7 @@ import {
   APIGatewayProxyEvent,
   APIGatewayProxyHandler,
   APIGatewayProxyResult,
+  Context,
 } from "aws-lambda";
 import "source-map-support/register";
 import { createLogger } from "./../../utils/logger";
@@ -20,7 +21,11 @@ AWS.config.update({
   region: process.env.REGION,
 });
 
-async function registerUser(body: ConfirmRequest) {
+const cognitoISP = new AWS.CognitoIdentityServiceProvider({
+  apiVersion: "2016-04-18",
+});
+
+async function registerUser(body: ConfirmRequest, context: Context) {
   const { email, verificationCode } = body;
 
   return new Promise(resolve => {
@@ -33,26 +38,48 @@ async function registerUser(body: ConfirmRequest) {
 
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
 
-    cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
-      if (err) {
-        logger.error("Error verification account: ", err);
+    cognitoUser.confirmRegistration(
+      verificationCode,
+      true,
+      async (err, result) => {
+        if (err) {
+          logger.error("Error verification account: ", err);
 
-        return resolve({ statusCode: 422, response: err });
+          return resolve({ statusCode: 422, response: err });
+        }
+
+        context.callbackWaitsForEmptyEventLoop = true;
+
+        const params = {
+          GroupName: process.env.CUSTOMER_GROUP,
+          UserPoolId: process.env.USER_POOL_ID,
+          Username: email,
+        };
+
+        // cognitoISP.adminAddUserToGroup(params, (err, resultAddUser) => {
+        //   if (err) {
+        //     logger.error("Error add user to group:", err);
+        //   }
+
+        //   logger.info("Success add new user to group", resultAddUser);
+        // });
+        await cognitoISP.adminAddUserToGroup(params).promise();
+
+        return resolve({ statusCode: 200, response: result });
       }
-
-      return resolve({ statusCode: 200, response: result });
-    });
+    );
   });
 }
 
 export const handler: APIGatewayProxyHandler = async (
-  event: APIGatewayProxyEvent
+  event: APIGatewayProxyEvent,
+  context: Context
 ): Promise<APIGatewayProxyResult> => {
   logger.info("Verification-User: ", event);
 
   const body = JSON.parse(event.body);
 
-  const result = await registerUser(body);
+  const result = await registerUser(body, context);
 
   return {
     statusCode: 201,
