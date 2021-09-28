@@ -18,31 +18,42 @@ const poolData = {
 async function signinUser(body: SignInRequest) {
   const { email, password } = body;
 
-  const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(
-    {
+  return new Promise(resolve => {
+    const authenticationDetails =
+      new AmazonCognitoIdentity.AuthenticationDetails({
+        Username: email,
+        Password: password,
+      });
+
+    const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+    const userData = {
       Username: email,
-      Password: password,
-    }
-  );
+      Pool: userPool,
+    };
 
-  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
 
-  const userData = {
-    Username: email,
-    Pool: userPool,
-  };
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: function (result) {
+        console.log("access token + " + result.getAccessToken().getJwtToken());
+        console.log("id token + " + result.getIdToken().getJwtToken());
+        console.log("refresh token + " + result.getRefreshToken().getToken());
 
-  const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+        return resolve({
+          statusCode: 200,
+          result,
+        });
+      },
+      onFailure: function (err) {
+        console.log(err);
 
-  cognitoUser.authenticateUser(authenticationDetails, {
-    onSuccess: function (result) {
-      console.log("access token + " + result.getAccessToken().getJwtToken());
-      console.log("id token + " + result.getIdToken().getJwtToken());
-      console.log("refresh token + " + result.getRefreshToken().getToken());
-    },
-    onFailure: function (err) {
-      console.log(err);
-    },
+        return resolve({
+          statusCode: 401,
+          result: err,
+        });
+      },
+    });
   });
 }
 
