@@ -42,7 +42,7 @@ async function signinUser(body: SignInRequest) {
 
         return resolve({
           statusCode: 200,
-          result,
+          ...result,
         });
       },
       onFailure: function (err) {
