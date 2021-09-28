@@ -33,13 +33,6 @@ async function registerUser(body: SignUpRequest) {
       })
     );
 
-    // attributesList.push(
-    //   new AmazonCognitoIdentity.CognitoUserAttribute({
-    //     Name: "phone_number",
-    //     Value: phoneNumber,
-    //   })
-    // );
-
     const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
     userPool.signUp(email, password, attributesList, null, function (err) {
