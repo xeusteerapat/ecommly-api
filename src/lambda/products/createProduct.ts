@@ -17,7 +17,7 @@ export const handler: APIGatewayProxyHandler = async (
   const authorizedObject = event.requestContext.authorizer.claims;
 
   if (
-    authorizedObject["cognito:groups"].toLocaleLowerCase().includes("admin")
+    !authorizedObject["cognito:groups"].toLocaleLowerCase().includes("admin")
   ) {
     return {
       statusCode: 401,
