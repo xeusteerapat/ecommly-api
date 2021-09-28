@@ -77,8 +77,8 @@ functions:
             type: COGNITO_USER_POOLS
             authorizerId:
               Ref: ApiGatewayAuthorizer
-  createProducts:
-    handler: src/lambda/products/createProducts.handler
+  createProduct:
+    handler: src/lambda/products/createProduct.handler
     events:
       - http:
           method: post
