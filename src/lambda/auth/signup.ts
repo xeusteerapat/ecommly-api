@@ -21,7 +21,7 @@ AWS.config.update({
 });
 
 async function registerUser(body: SignUpRequest) {
-  const { email, password, phoneNumber } = body;
+  const { email, password } = body;
 
   return new Promise(resolve => {
     let attributesList = [];
@@ -30,13 +30,6 @@ async function registerUser(body: SignUpRequest) {
       new AmazonCognitoIdentity.CognitoUserAttribute({
         Name: "email",
         Value: email,
-      })
-    );
-
-    attributesList.push(
-      new AmazonCognitoIdentity.CognitoUserAttribute({
-        Name: "phone_number",
-        Value: phoneNumber,
       })
     );
 
