@@ -99,6 +99,7 @@ cognitoAdminIAMRole:
                 - !GetAtt ordersTable.Arn
             - Effect: Allow
               Action:
+                - "lambda:InvokeFunction"
                 - cognito-idp:AdminAddUserToGroup
               Resource: "*"
     RoleName: ecommly-admin-role-${self:provider.stage}
@@ -146,6 +147,7 @@ cognitoCustomerIAMRole:
                 - !GetAtt productsTable.Arn # customer can only create order
             - Effect: Allow
               Action:
+                - "lambda:InvokeFunction"
                 - cognito-idp:AdminAddUserToGroup
               Resource: "*"
     RoleName: ecommly-customer-role-${self:provider.stage}
