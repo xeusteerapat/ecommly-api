@@ -77,6 +77,17 @@ functions:
             type: COGNITO_USER_POOLS
             authorizerId:
               Ref: ApiGatewayAuthorizer
+  createProduct:
+    handler: src/lambda/products/createProduct.handler
+    events:
+      - http:
+          method: post
+          path: products
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
 
 resources:
   Resources: ${file(./src/resources/resources.yml)}
