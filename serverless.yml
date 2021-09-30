@@ -88,6 +88,17 @@ functions:
             type: COGNITO_USER_POOLS
             authorizerId:
               Ref: ApiGatewayAuthorizer
+  uploadImage:
+    handler: src/lambda/images/generateUploadUrl.handler
+    events:
+      - http:
+          method: post
+          path: upload
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
 
 resources:
   Resources: ${file(./src/resources/resources.yml)}
