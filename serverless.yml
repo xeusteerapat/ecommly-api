@@ -93,12 +93,18 @@ functions:
     events:
       - http:
           method: post
-          path: upload
+          path: products/{productId}/upload
           cors: true
           authorizer:
             type: COGNITO_USER_POOLS
             authorizerId:
               Ref: ApiGatewayAuthorizer
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - s3:PutObject
+          - s3:GetObject
+        Resource: arn:aws:s3:::${self:provider.environment.IMAGES_BUCKET_NAME}/*
 
 resources:
   Resources: ${file(./src/resources/resources.yml)}
