@@ -23,7 +23,7 @@ export const handler: APIGatewayProxyHandler = async (
     return {
       statusCode: 400,
       body: JSON.stringify({
-        error: "Missing TodoId parameter",
+        error: "Missing productId parameter",
       }),
     };
   }
