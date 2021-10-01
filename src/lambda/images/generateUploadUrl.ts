@@ -15,7 +15,7 @@ const logger = createLogger("Generate-Upload-Product-Url");
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  logger.info(`Processing upload url ${event}`);
+  logger.info("Processing upload url:", event);
 
   const productId = event.pathParameters.productId;
 
@@ -31,7 +31,7 @@ export const handler: APIGatewayProxyHandler = async (
   //TODO: Need to check authorized admin before upload url
 
   const signedUrl: string = await getImageSignedUrl(productId);
-  logger.info(`Retreived signe url image ${signedUrl}`);
+  logger.info("Retreived signed url image:", signedUrl);
 
   await updateAttachmentUrl(signedUrl, productId);
 
