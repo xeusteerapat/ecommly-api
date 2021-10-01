@@ -2,9 +2,15 @@ export interface Product {
   productId: string;
   name: string;
   price: number;
-  imageUrl: string;
+  imageUrl?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface CreateProduct {
+  name: string;
+  price: number;
+  imageUrl?: string;
 }
 
 export interface UpdateProduct {
