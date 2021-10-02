@@ -22,6 +22,7 @@ export class ProductAccess {
     const result = await this.docClient
       .query({
         TableName: this.productTable,
+        KeyConditionExpression: "",
       })
       .promise();
 
