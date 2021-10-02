@@ -28,6 +28,19 @@ export async function createProduct(
 }
 
 /**
+ *
+ * Get all products
+ * @returns
+ */
+export async function getProducts(): Promise<Product[]> {
+  logger.info("Get all Product");
+
+  const products = product.getProducts();
+
+  return products;
+}
+
+/**
  * @param signedUrl
  * @param productId
  */
