@@ -41,6 +41,20 @@ export async function getProducts(): Promise<Product[]> {
 }
 
 /**
+ *
+ * Get product by productId
+ * @param productId
+ * @returns
+ */
+export async function getProductById(productId: string) {
+  logger.info("Get product by id");
+
+  const productItem = product.getProductById(productId);
+
+  return productItem;
+}
+
+/**
  * @param signedUrl
  * @param productId
  */

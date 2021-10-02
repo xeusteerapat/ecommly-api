@@ -32,6 +32,20 @@ export class ProductAccess {
     return items as Product[];
   }
 
+  async getProductById(productId: string) {
+    const result = await this.docClient
+      .query({
+        TableName: this.productTable,
+        KeyConditionExpression: "productId = :productId",
+        ExpressionAttributeValues: {
+          ":productId": productId,
+        },
+      })
+      .promise();
+
+    return result.Items[0];
+  }
+
   async createProduct(newProduct: Product): Promise<Product> {
     await this.docClient
       .put({
