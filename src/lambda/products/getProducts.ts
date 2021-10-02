@@ -28,7 +28,7 @@ export const handler: APIGatewayProxyHandler = async (
     };
   } catch (error) {
     return {
-      statusCode: 500,
+      statusCode: error.statusCode,
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
