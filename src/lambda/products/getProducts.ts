@@ -14,15 +14,27 @@ export const handler: APIGatewayProxyHandler = async (
 ): Promise<APIGatewayProxyResult> => {
   logger.info("Processing event in GetProducts: ", event);
 
-  const products = await getProducts();
+  try {
+    const products = await getProducts();
 
-  return {
-    statusCode: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-    body: JSON.stringify({
-      items: products,
-    }),
-  };
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        items: products,
+      }),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        message: error,
+      }),
+    };
+  }
 };
