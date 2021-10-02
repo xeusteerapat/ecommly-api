@@ -20,12 +20,8 @@ export class ProductAccess {
 
   async getProducts(): Promise<Product[]> {
     const result = await this.docClient
-      .query({
+      .scan({
         TableName: this.productTable,
-        KeyConditionExpression: "#productId =:p",
-        ExpressionAttributeNames: {
-          "#productId": "productId",
-        },
       })
       .promise();
 
