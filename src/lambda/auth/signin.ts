@@ -36,10 +36,6 @@ async function signinUser(body: SignInRequest) {
 
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: function (result) {
-        console.log("access token + " + result.getAccessToken().getJwtToken());
-        console.log("id token + " + result.getIdToken().getJwtToken());
-        console.log("refresh token + " + result.getRefreshToken().getToken());
-
         return resolve({
           statusCode: 200,
           ...result,

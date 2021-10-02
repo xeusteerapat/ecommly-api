@@ -1,3 +1,4 @@
+import { CreateProduct } from "./../../models/Product";
 import { createLogger } from "./../../utils/logger";
 import "source-map-support/register";
 import {
@@ -5,14 +6,14 @@ import {
   APIGatewayProxyResult,
   APIGatewayProxyHandler,
 } from "aws-lambda";
-// import { nanoid } from "nanoid";
+import { createProduct } from "../../business-logic/product";
 
-const logger = createLogger("Get-Products");
+const logger = createLogger("Create-Products");
 
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  logger.info("Processing event in GetProducts: ", event);
+  logger.info("Processing event in Create new product: ", event);
 
   const authorizedObject = event.requestContext.authorizer.claims;
 
@@ -30,13 +31,17 @@ export const handler: APIGatewayProxyHandler = async (
     };
   }
 
+  const newProduct: CreateProduct = JSON.parse(event.body);
+
+  const newProductItem = await createProduct(newProduct);
+
   return {
     statusCode: 200,
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
     body: JSON.stringify({
-      message: "Welcome Admin",
+      item: newProductItem,
     }),
   };
 };
