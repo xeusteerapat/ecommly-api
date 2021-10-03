@@ -16,11 +16,7 @@ export async function getUserProfile(token: string) {
 
   logger.info("Check pem", pem);
 
-  jwt.verify(token, pem, { algorithms: ["RS256"] }, function (err, decoded) {
-    if (err) {
-      logger.error("Something wrong", err);
-    }
+  const decodedToken = jwt.verify(token, pem, { algorithms: ["RS256"] });
 
-    return decoded;
-  });
+  return decodedToken;
 }
