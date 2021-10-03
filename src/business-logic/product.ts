@@ -72,6 +72,20 @@ export async function updateProductById(
 }
 
 /**
+ *
+ * Delete product by productId
+ * @param productId
+ * @returns
+ */
+export async function deleteProductById(productId: string) {
+  logger.info("Delete product by id");
+
+  const deletedProductItem = product.deleteProduct(productId);
+
+  return deletedProductItem;
+}
+
+/**
  * @param signedUrl
  * @param productId
  */
