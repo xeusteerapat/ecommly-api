@@ -16,22 +16,34 @@ export const handler: APIGatewayProxyHandler = async (
 ): Promise<APIGatewayProxyResult> => {
   logger.info("Processing event in Create new product: ", event);
 
-  const authorization = event.headers.Authorization;
-  const jwtToken = authorization.split(" ")[1];
+  try {
+    const authorization = event.headers.Authorization;
+    const jwtToken = authorization.split(" ")[1];
 
-  const userProfile = await getUserProfile(jwtToken);
+    const userProfile = await getUserProfile(jwtToken);
 
-  // const newProduct: CreateOrder = JSON.parse(event.body);
+    // const newProduct: CreateOrder = JSON.parse(event.body);
 
-  // const newProductItem = await createOrder(newProduct);
+    // const newProductItem = await createOrder(newProduct);
 
-  return {
-    statusCode: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-    body: JSON.stringify({
-      item: userProfile,
-    }),
-  };
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        item: userProfile,
+      }),
+    };
+  } catch (error) {
+    return {
+      statusCode: error.statusCode,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        message: error,
+      }),
+    };
+  }
 };
