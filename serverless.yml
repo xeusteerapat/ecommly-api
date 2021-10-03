@@ -128,7 +128,7 @@ functions:
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create new product
-            requestModel:
+            requestModels:
               "application/json": CreateProductRequest
     iamRoleStatements:
       - Effect: Allow
@@ -149,7 +149,7 @@ functions:
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Update an existing product
-            requestModel:
+            requestModels:
               "application/json": UpdateProductRequest
     iamRoleStatements:
       - Effect: Allow
