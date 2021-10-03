@@ -129,7 +129,7 @@ functions:
           documentation:
             summary: Create new product
             requestModel:
-              "application/json": "CreateProductRequest"
+              "application/json": CreateProductRequest
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -150,7 +150,7 @@ functions:
           documentation:
             summary: Update an existing product
             requestModel:
-              "application/json": "UpdateProductRequest"
+              "application/json": UpdateProductRequest
     iamRoleStatements:
       - Effect: Allow
         Action:
