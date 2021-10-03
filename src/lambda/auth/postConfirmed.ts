@@ -56,13 +56,6 @@ async function registerUser(body: ConfirmRequest, context: Context) {
           Username: email,
         };
 
-        // cognitoISP.adminAddUserToGroup(params, (err, resultAddUser) => {
-        //   if (err) {
-        //     logger.error("Error add user to group:", err);
-        //   }
-
-        //   logger.info("Success add new user to group", resultAddUser);
-        // });
         await cognitoISP.adminAddUserToGroup(params).promise();
 
         return resolve({ statusCode: 200, response: result });

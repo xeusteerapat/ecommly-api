@@ -38,7 +38,9 @@ async function signinUser(body: SignInRequest) {
       onSuccess: function (result) {
         return resolve({
           statusCode: 200,
-          ...result,
+          token: result.getIdToken().getJwtToken(),
+          userId: result.getIdToken().payload.sub,
+          role: result.getIdToken().payload["cognito:groups"],
         });
       },
       onFailure: function (err) {
