@@ -43,6 +43,7 @@ functions:
       - http:
           method: get
           path: hello
+  # Authentication
   signup:
     handler: src/lambda/auth/signup.handler
     events:
@@ -66,6 +67,7 @@ functions:
         Action:
           - cognito-idp:AdminAddUserToGroup
         Resource: "*"
+  # Products
   products:
     handler: src/lambda/products/getProducts.handler
     events:
@@ -115,6 +117,23 @@ functions:
         Action:
           - dynamodb:PutItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.PRODUCTS_TABLE}
+  updateProduct:
+    handler: src/lambda/products/updateProduct.handler
+    events:
+      - http:
+          method: put
+          path: products/{productId}
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.PRODUCTS_TABLE}
+  # Images
   uploadImage:
     handler: src/lambda/images/generateUploadUrl.handler
     events:
