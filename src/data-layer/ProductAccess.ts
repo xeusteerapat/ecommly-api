@@ -1,3 +1,4 @@
+import { generateUpdateQuery } from "./../utils/generateUpdateQuery";
 import * as AWS from "aws-sdk";
 import * as AWSXRay from "aws-xray-sdk";
 import {
@@ -60,23 +61,14 @@ export class ProductAccess {
   }
 
   async updateProduct(productId: string, updateValue: UpdateProduct) {
+    const updateExpression = generateUpdateQuery(updateValue);
+
     const updatedProductItem: UpdateItemOutput = await this.docClient
       .update({
         TableName: this.productTable,
         Key: { productId },
         ReturnValues: "ALL_NEW",
-        UpdateExpression:
-          "set #name = :name, #price = :price, #imageUrl = :imageUrl",
-        ExpressionAttributeValues: {
-          ":name": updateValue.name,
-          ":price": updateValue.price,
-          ":imageUrl": updateValue.imageUrl,
-        },
-        ExpressionAttributeNames: {
-          "#name": "name",
-          "#price": "price",
-          "#imageUrl": "imageUrl",
-        },
+        ...updateExpression,
       })
       .promise();
 
