@@ -174,7 +174,7 @@ functions:
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.PRODUCTS_TABLE}
   # Order
   createOrder:
-    handler: src/lambda/products/createOrder.handler
+    handler: src/lambda/orders/createOrder.handler
     events:
       - http:
           method: post
