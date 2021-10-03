@@ -5,8 +5,8 @@ plugins:
   - serverless-webpack
   - serverless-stage-manager
   - serverless-iam-roles-per-function
-  # - serverless-aws-documentation
-  # - serverless-reqvalidator-plugin
+  - serverless-aws-documentation
+  - serverless-reqvalidator-plugin
 
 provider:
   name: aws
@@ -35,6 +35,19 @@ custom:
   TEST_SECRET: ${ssm:test-${self:provider.stage}-secret}
   USER_POOL_ID: ${ssm:userpool-${self:provider.stage}-id}
   USER_POOL_CLIENT_ID: ${ssm:client-${self:provider.stage}-id}
+  documentation:
+    api:
+      info:
+        version: v1.0.0
+        title: Ecommly API
+        description: Serverless Ecommerce Application
+    models:
+      - name: "CreateProductRequest"
+        contentType: application/json
+        schema: ${file(request-validators/create-product-request.json)}
+      - name: "UpdateProductRequest"
+        contentType: application/json
+        schema: ${file(request-validators/update-product-request.json)}
 
 functions:
   hello:
@@ -112,6 +125,11 @@ functions:
             type: COGNITO_USER_POOLS
             authorizerId:
               Ref: ApiGatewayAuthorizer
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create new product
+            requestModels:
+              "application/json": CreateProductRequest
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -128,6 +146,11 @@ functions:
             type: COGNITO_USER_POOLS
             authorizerId:
               Ref: ApiGatewayAuthorizer
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Update an existing product
+            requestModels:
+              "application/json": UpdateProductRequest
     iamRoleStatements:
       - Effect: Allow
         Action:

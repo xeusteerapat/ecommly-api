@@ -1,23 +1,24 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "todo",
+  "title": "create-product",
   "type": "object",
   "properties": {
     "name": {
       "type": "string",
       "minLength": 3,
-      "maxLength": 40
+      "maxLength": 20
     },
-    "dueDate": {
+    "price": {
+      "type": "number"
+    },
+    "imageUrl": {
       "type": "string"
-    },
-    "createdAt": {
-      "type": "string"
-    },
-    "done": {
-      "type": "boolean"
     }
   },
-  "required": ["name", "dueDate"],
+  "anyOf": [
+    { "required": ["name"] },
+    { "required": ["price"] },
+    { "required": ["imageUrl"] }
+  ],
   "additionalProperties": false
 }
