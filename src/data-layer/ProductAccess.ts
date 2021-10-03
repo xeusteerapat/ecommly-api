@@ -65,14 +65,17 @@ export class ProductAccess {
         TableName: this.productTable,
         Key: { productId },
         ReturnValues: "ALL_NEW",
-        UpdateExpression: "set #name = :name, #price = :price",
+        UpdateExpression:
+          "set #name = :name, #price = :price, #imageUrl = :imageUrl",
         ExpressionAttributeValues: {
           ":name": updateValue.name,
           ":price": updateValue.price,
+          ":imageUrl": updateValue.imageUrl,
         },
         ExpressionAttributeNames: {
           "#name": "name",
           "#price": "price",
+          "#imageUrl": "imageUrl",
         },
       })
       .promise();

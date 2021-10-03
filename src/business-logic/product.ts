@@ -1,8 +1,8 @@
-import { CreateProduct, Product } from "./../models/Product";
-import { ProductAccess } from "./../data-layer/ProductAccess";
-import { createLogger } from "./../utils/logger";
-import { Images } from "../data-layer/ImageAccess";
 import { nanoid } from "nanoid";
+import { Images } from "../data-layer/ImageAccess";
+import { ProductAccess } from "./../data-layer/ProductAccess";
+import { CreateProduct, Product, UpdateProduct } from "./../models/Product";
+import { createLogger } from "./../utils/logger";
 
 const logger = createLogger("Product-Logic");
 const image = new Images();
@@ -50,6 +50,23 @@ export async function getProductById(productId: string) {
   logger.info("Get product by id");
 
   const productItem = product.getProductById(productId);
+
+  return productItem;
+}
+
+/**
+ *
+ * Update product by productId
+ * @param productId
+ * @returns
+ */
+export async function updateProductById(
+  productId: string,
+  updateData: UpdateProduct
+) {
+  logger.info("Update product by id");
+
+  const productItem = product.updateProduct(productId, updateData);
 
   return productItem;
 }
