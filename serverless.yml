@@ -47,7 +47,7 @@ custom:
         schema: ${file(request-validators/create-product-request.json)}
       - name: "UpdateProductRequest"
         contentType: application/json
-        schema: ${file(request-validators/create-product-request.json)}
+        schema: ${file(request-validators/update-product-request.json)}
 
 functions:
   hello:
@@ -148,7 +148,7 @@ functions:
               Ref: ApiGatewayAuthorizer
           reqValidatorName: RequestBodyValidator
           documentation:
-            summary: Create new product
+            summary: Update an existing product
             requestModel:
               "application/json": "UpdateProductRequest"
     iamRoleStatements:
