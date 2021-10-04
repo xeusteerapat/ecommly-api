@@ -1,13 +1,13 @@
-// import { CreateOrder } from "./../../models/Order";
-import { createLogger } from "./../../utils/logger";
-import "source-map-support/register";
 import {
   APIGatewayProxyEvent,
-  APIGatewayProxyResult,
   APIGatewayProxyHandler,
+  APIGatewayProxyResult,
 } from "aws-lambda";
-// import { createOrder } from "../../business-logic/order";
+import "source-map-support/register";
+import { createOrder } from "../../business-logic/order";
 import { getUserProfile } from "../../utils/getUserProfile";
+import { CreateOrder } from "./../../models/Order";
+import { createLogger } from "./../../utils/logger";
 
 const logger = createLogger("Create-Products");
 
@@ -19,12 +19,10 @@ export const handler: APIGatewayProxyHandler = async (
   try {
     const authorization = event.headers.Authorization;
     const jwtToken = authorization.split(" ")[1];
-
     const userProfile = await getUserProfile(jwtToken);
 
-    // const newProduct: CreateOrder = JSON.parse(event.body);
-
-    // const newProductItem = await createOrder(newProduct);
+    const newOrder: CreateOrder = JSON.parse(event.body);
+    const newOrderItem = await createOrder(newOrder, userProfile.userId);
 
     return {
       statusCode: 200,
@@ -32,7 +30,7 @@ export const handler: APIGatewayProxyHandler = async (
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        item: userProfile,
+        item: newOrderItem,
       }),
     };
   } catch (error) {
