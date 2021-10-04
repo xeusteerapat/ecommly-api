@@ -48,6 +48,9 @@ custom:
       - name: "UpdateProductRequest"
         contentType: application/json
         schema: ${file(request-validators/update-product-request.json)}
+      - name: "CreateOrderRequest"
+        contentType: application/json
+        schema: ${file(request-validators/create-create-request.json)}
 
 functions:
   hello:
@@ -184,11 +187,16 @@ functions:
             type: COGNITO_USER_POOLS
             authorizerId:
               Ref: ApiGatewayAuthorizer
-          # reqValidatorName: RequestBodyValidator
-          # documentation:
-          #   summary: Create new product
-          #   requestModels:
-          #     "application/json": CreateProductRequest
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create new order
+            requestModels:
+              "application/json": CreateOrderRequest
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}
   # Images
   uploadImage:
     handler: src/lambda/images/generateUploadUrl.handler
