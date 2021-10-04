@@ -1,3 +1,4 @@
+import { UserProfile } from "./../models/UserProfile";
 import { JWKRoot } from "./../models/JWK";
 import * as jwt from "jsonwebtoken";
 import jwkToPem from "jwk-to-pem";
@@ -19,5 +20,11 @@ export async function getUserProfile(token: string) {
 
   const decodedToken = jwt.verify(token, pem, { algorithms: ["RS256"] });
 
-  return decodedToken;
+  const userProfile: UserProfile = {
+    userId: decodedToken["cognito:username"],
+    role: decodedToken["cognito:groups"],
+    email: decodedToken["email"],
+  };
+
+  return userProfile;
 }
