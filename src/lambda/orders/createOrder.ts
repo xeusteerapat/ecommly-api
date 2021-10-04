@@ -6,7 +6,7 @@ import {
 import "source-map-support/register";
 import { createOrder } from "../../business-logic/order";
 import { getUserProfile } from "../../utils/getUserProfile";
-import { CreateOrder } from "./../../models/Order";
+import { OrderItems } from "./../../models/Order";
 import { createLogger } from "./../../utils/logger";
 
 const logger = createLogger("Create-Products");
@@ -21,7 +21,7 @@ export const handler: APIGatewayProxyHandler = async (
     const jwtToken = authorization.split(" ")[1];
     const userProfile = await getUserProfile(jwtToken);
 
-    const newOrder: CreateOrder = JSON.parse(event.body);
+    const newOrder: OrderItems[] = JSON.parse(event.body);
     const newOrderItem = await createOrder(newOrder, userProfile.userId);
 
     return {
