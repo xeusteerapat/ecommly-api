@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { OrderAccess } from "./../data-layer/OrderAccess";
-import { CreateOrder, Order } from "./../models/Order";
+import { Order, OrderItems } from "./../models/Order";
 import { createLogger } from "./../utils/logger";
 
 const logger = createLogger("Order-Logic");
@@ -12,7 +12,7 @@ const order = new OrderAccess();
  * @param userId from request headers
  */
 export async function createOrder(
-  newOrder: CreateOrder,
+  newOrder: OrderItems[],
   userId: string
 ): Promise<Order> {
   logger.info(`Create new product`);
@@ -22,7 +22,7 @@ export async function createOrder(
     orderId: nanoid(),
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    ...newOrder,
+    orderItems: newOrder,
   };
 
   return await order.createOrder(newOrderItem);

@@ -14,16 +14,16 @@ export class OrderAccess {
     private readonly orderTable = process.env.ORDERS_TABLE
   ) {}
 
-  async createOrder(newOrder: Order): Promise<Order> {
+  async createOrder(newOrderItem: Order) {
     await this.docClient
       .put({
         TableName: this.orderTable,
-        Item: newOrder,
+        Item: newOrderItem,
       })
       .promise();
 
-    logger.info("Create new order item,", newOrder);
+    logger.info("Create new order item,", newOrderItem);
 
-    return newOrder;
+    return newOrderItem;
   }
 }
