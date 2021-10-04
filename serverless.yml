@@ -50,7 +50,7 @@ custom:
         schema: ${file(request-validators/update-product-request.json)}
       - name: "CreateOrderRequest"
         contentType: application/json
-        schema: ${file(request-validators/create-create-request.json)}
+        schema: ${file(request-validators/create-order-request.json)}
 
 functions:
   hello:
