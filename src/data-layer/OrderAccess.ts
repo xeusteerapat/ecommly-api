@@ -1,0 +1,29 @@
+import * as AWS from "aws-sdk";
+import * as AWSXRay from "aws-xray-sdk";
+import { DocumentClient } from "aws-sdk/clients/dynamodb";
+import { createLogger } from ".././utils/logger";
+import { Order } from "../models/Order";
+
+const logger = createLogger("Order-Access");
+
+const XAWS = AWSXRay.captureAWS(AWS);
+
+export class OrderAccess {
+  constructor(
+    private readonly docClient: DocumentClient = new XAWS.DynamoDB.DocumentClient(),
+    private readonly orderTable = process.env.ORDERS_TABLE
+  ) {}
+
+  async createOrder(newOrder: Order): Promise<Order> {
+    await this.docClient
+      .put({
+        TableName: this.orderTable,
+        Item: newOrder,
+      })
+      .promise();
+
+    logger.info("Create new order item,", newOrder);
+
+    return newOrder;
+  }
+}
