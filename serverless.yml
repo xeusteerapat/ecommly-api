@@ -232,7 +232,7 @@ functions:
       - Effect: Allow
         Action:
           - dynamodb:Query
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE/index/byOrder}
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}/index/byOrder
   # Images
   uploadImage:
     handler: src/lambda/images/generateUploadUrl.handler
