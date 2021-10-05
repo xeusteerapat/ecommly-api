@@ -43,13 +43,14 @@ export class OrderAccess {
     return result.Items;
   }
 
-  async getOrderById(orderId: string) {
+  async getOrderById(orderId: string, userId: string) {
     const result = await this.docClient
       .query({
         TableName: this.orderTable,
-        KeyConditionExpression: "orderId = :orderId",
+        KeyConditionExpression: "orderId = :orderId, userId = :userId",
         ExpressionAttributeValues: {
           ":orderId": orderId,
+          ":userId": userId,
         },
       })
       .promise();

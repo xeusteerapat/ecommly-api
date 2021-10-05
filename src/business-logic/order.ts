@@ -42,8 +42,8 @@ export async function getOrders(userId: string) {
  * Create new order
  * @param userId from request headers
  */
-export async function getOrderById(orderId: string) {
-  const orderItem = await order.getOrderById(orderId);
+export async function getOrderById(orderId: string, userId: string) {
+  const orderItem = await order.getOrderById(orderId, userId);
 
   return orderItem;
 }
