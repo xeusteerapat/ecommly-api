@@ -29,11 +29,21 @@ export async function createOrder(
 }
 
 /**
- * Create new order
+ * Get order by userId
  * @param userId from request headers
  */
 export async function getOrders(userId: string) {
   const orderByUserId = await order.getOrdersByUserId(userId);
 
   return orderByUserId;
+}
+
+/**
+ * Create new order
+ * @param userId from request headers
+ */
+export async function getOrderById(orderId: string) {
+  const orderItem = await order.getOrderById(orderId);
+
+  return orderItem;
 }

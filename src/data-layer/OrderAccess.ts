@@ -38,6 +38,23 @@ export class OrderAccess {
       })
       .promise();
 
+    logger.info("Get order item by userId", result.Items);
+
+    return result.Items;
+  }
+
+  async getOrderById(orderId: string) {
+    const result = await this.docClient
+      .query({
+        TableName: this.orderTable,
+        IndexName: "byOrder",
+        KeyConditionExpression: "orderId = :orderId",
+        ExpressionAttributeValues: {
+          ":orderId": orderId,
+        },
+      })
+      .promise();
+
     return result.Items;
   }
 }
