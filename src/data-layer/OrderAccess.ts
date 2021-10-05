@@ -47,7 +47,6 @@ export class OrderAccess {
     const result = await this.docClient
       .query({
         TableName: this.orderTable,
-        IndexName: "byOrder",
         KeyConditionExpression: "orderId = :orderId",
         ExpressionAttributeValues: {
           ":orderId": orderId,
