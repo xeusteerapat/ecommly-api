@@ -197,6 +197,22 @@ functions:
         Action:
           - dynamodb:PutItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}
+  getOrdersByUserId:
+    handler: src/lambda/orders/getOrders.handler
+    events:
+      - http:
+          method: get
+          path: orders
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}
   # Images
   uploadImage:
     handler: src/lambda/images/generateUploadUrl.handler
