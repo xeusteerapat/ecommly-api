@@ -181,7 +181,7 @@ functions:
     events:
       - http:
           method: post
-          path: order
+          path: orders
           cors: true
           authorizer:
             type: COGNITO_USER_POOLS
@@ -203,6 +203,22 @@ functions:
       - http:
           method: get
           path: orders
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}
+  getOrderById:
+    handler: src/lambda/orders/getOrderById.handler
+    events:
+      - http:
+          method: get
+          path: orders/{orderId}
           cors: true
           authorizer:
             type: COGNITO_USER_POOLS
