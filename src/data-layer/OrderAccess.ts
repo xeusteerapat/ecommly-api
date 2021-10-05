@@ -26,4 +26,18 @@ export class OrderAccess {
 
     return newOrderItem;
   }
+
+  async getOrdersByUserId(userId: string) {
+    const result = await this.docClient
+      .query({
+        TableName: this.orderTable,
+        KeyConditionExpression: "userId = :userId",
+        ExpressionAttributeValues: {
+          ":userId": userId,
+        },
+      })
+      .promise();
+
+    return result.Items;
+  }
 }

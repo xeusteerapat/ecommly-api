@@ -27,3 +27,13 @@ export async function createOrder(
 
   return await order.createOrder(newOrderItem);
 }
+
+/**
+ * Create new order
+ * @param userId from request headers
+ */
+export async function getOrders(userId: string) {
+  const orderByUserId = await order.getOrdersByUserId(userId);
+
+  return orderByUserId;
+}
