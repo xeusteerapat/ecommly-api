@@ -4,6 +4,7 @@ import {
   APIGatewayProxyResult,
 } from "aws-lambda";
 import "source-map-support/register";
+import { updatePayment } from "../../business-logic/order";
 import {
   createCharge,
   createCreditCardToken,
@@ -33,6 +34,8 @@ export const handler: APIGatewayProxyHandler = async (
       userId: userProfile.userId,
       status: newCharges.status,
     };
+
+    await updatePayment(orderId, userProfile.userId, paymentResult.status);
 
     return {
       statusCode: 200,

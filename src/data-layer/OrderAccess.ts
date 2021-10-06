@@ -57,4 +57,25 @@ export class OrderAccess {
 
     return result.Items;
   }
+
+  async updatePaymentStatus(
+    orderId: string,
+    userId: string,
+    paymentStatus: string
+  ) {
+    await this.docClient
+      .update({
+        TableName: this.orderTable,
+        Key: { orderId, userId },
+        ReturnValues: "ALL_NEW",
+        UpdateExpression: "set #status = :status",
+        ExpressionAttributeValues: {
+          ":status": paymentStatus,
+        },
+        ExpressionAttributeNames: {
+          "#status": "status",
+        },
+      })
+      .promise();
+  }
 }

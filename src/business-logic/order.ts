@@ -53,3 +53,17 @@ export async function getOrderById(orderId: string, userId: string) {
 
   return orderItem;
 }
+
+/**
+ *
+ * @param orderId
+ * @param userId
+ * @param paymentStatus
+ */
+export async function updatePayment(
+  orderId: string,
+  userId: string,
+  paymentStatus: string
+) {
+  await order.updatePaymentStatus(orderId, userId, paymentStatus);
+}
