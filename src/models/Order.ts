@@ -1,10 +1,18 @@
 export interface Order {
-  productId: string;
   orderId: string;
   userId: string;
-  quantity: number;
+  orderItems: OrderItems[];
   createdAt: string;
   updatedAt: string;
+  status: string;
+  totalPrice: number;
+}
+
+export interface OrderItems {
+  productId: string;
+  quantity: number;
+  name: string;
+  price: number;
 }
 
 export interface CreateOrder {

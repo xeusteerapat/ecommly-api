@@ -4,25 +4,38 @@ import {
   APIGatewayProxyResult,
 } from "aws-lambda";
 import "source-map-support/register";
-import { createOrder } from "../../business-logic/order";
+import { updatePayment } from "../../business-logic/order";
+import {
+  createCharge,
+  createCreditCardToken,
+} from "../../business-logic/payment";
 import { getUserProfile } from "../../utils/getUserProfile";
-import { OrderItems } from "./../../models/Order";
 import { createLogger } from "./../../utils/logger";
 
-const logger = createLogger("Create-Products");
+const logger = createLogger("Create-Payment");
 
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  logger.info("Processing event in Create new product: ", event);
+  logger.info("Processing event in Create new payment: ", event);
 
   try {
     const authorization = event.headers.Authorization;
     const jwtToken = authorization.split(" ")[1];
     const userProfile = await getUserProfile(jwtToken);
 
-    const newOrder: OrderItems[] = JSON.parse(event.body);
-    const newOrderItem = await createOrder(newOrder, userProfile.userId);
+    const orderId = event.pathParameters.orderId;
+    const token = await createCreditCardToken();
+
+    const newCharges = await createCharge(JSON.parse(event.body), token.id);
+
+    const paymentResult = {
+      orderId,
+      userId: userProfile.userId,
+      status: newCharges.status,
+    };
+
+    await updatePayment(orderId, userProfile.userId, paymentResult.status);
 
     return {
       statusCode: 200,
@@ -30,7 +43,7 @@ export const handler: APIGatewayProxyHandler = async (
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        item: newOrderItem,
+        result: paymentResult,
       }),
     };
   } catch (error) {

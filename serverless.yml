@@ -24,6 +24,7 @@ provider:
     USER_POOL_CLIENT_ID: ${self:custom.USER_POOL_CLIENT_ID}
     ADMIN_GROUP: Admin-${self:provider.stage}
     CUSTOMER_GROUP: Customer-${self:provider.stage}
+    STRIPE_SECRET_KEY: ${self:custom.STRIPE_SECRET_KEY}
   tracing:
     apiGateway: true
     lambda: true
@@ -35,6 +36,7 @@ custom:
   TEST_SECRET: ${ssm:test-${self:provider.stage}-secret}
   USER_POOL_ID: ${ssm:userpool-${self:provider.stage}-id}
   USER_POOL_CLIENT_ID: ${ssm:client-${self:provider.stage}-id}
+  STRIPE_SECRET_KEY: ${ssm:stripe-secret-key}
   documentation:
     api:
       info:
@@ -42,6 +44,15 @@ custom:
         title: Ecommly API
         description: Serverless Ecommerce Application
     models:
+      - name: "SignupRequest"
+        contentType: application/json
+        schema: ${file(request-validators/signup-request.json)}
+      - name: "SigninRequest"
+        contentType: application/json
+        schema: ${file(request-validators/signin-request.json)}
+      - name: "VerifyAccountRequest"
+        contentType: application/json
+        schema: ${file(request-validators/verify-request.json)}
       - name: "CreateProductRequest"
         contentType: application/json
         schema: ${file(request-validators/create-product-request.json)}
@@ -50,7 +61,10 @@ custom:
         schema: ${file(request-validators/update-product-request.json)}
       - name: "CreateOrderRequest"
         contentType: application/json
-        schema: ${file(request-validators/create-create-request.json)}
+        schema: ${file(request-validators/create-order-request.json)}
+      - name: "PaymentRequest"
+        contentType: application/json
+        schema: ${file(request-validators/payment-request.json)}
 
 functions:
   hello:
@@ -66,18 +80,33 @@ functions:
       - http:
           method: post
           path: signup
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Signup new user
+            requestModels:
+              "application/json": SignupRequest
   signin:
     handler: src/lambda/auth/signin.handler
     events:
       - http:
           method: post
           path: signin
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Signin user
+            requestModels:
+              "application/json": SigninRequest
   postConfirmed:
     handler: src/lambda/auth/postConfirmed.handler
     events:
       - http:
           method: post
           path: confirmed
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Confirm verification code
+            requestModels:
+              "application/json": VerifyAccountRequest
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -181,7 +210,7 @@ functions:
     events:
       - http:
           method: post
-          path: order
+          path: orders
           cors: true
           authorizer:
             type: COGNITO_USER_POOLS
@@ -196,6 +225,64 @@ functions:
       - Effect: Allow
         Action:
           - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}
+  getOrdersByUserId:
+    handler: src/lambda/orders/getOrders.handler
+    events:
+      - http:
+          method: get
+          path: orders
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}
+  getOrderById:
+    handler: src/lambda/orders/getOrderById.handler
+    events:
+      - http:
+          method: get
+          path: orders/{orderId}
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}
+      # - Effect: Allow
+      #   Action:
+      #     - dynamodb:Query
+      #   Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}/index/byOrder
+  # Payment
+  payment:
+    handler: src/lambda/payment/payToOrder.handler
+    events:
+      - http:
+          method: post
+          path: payment/{orderId}
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create new payment
+            requestModels:
+              "application/json": PaymentRequest
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}
   # Images
   uploadImage:

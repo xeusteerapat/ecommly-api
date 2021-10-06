@@ -4,25 +4,23 @@ import {
   APIGatewayProxyResult,
 } from "aws-lambda";
 import "source-map-support/register";
-import { createOrder } from "../../business-logic/order";
+import { getOrders } from "../../business-logic/order";
 import { getUserProfile } from "../../utils/getUserProfile";
-import { OrderItems } from "./../../models/Order";
-import { createLogger } from "./../../utils/logger";
+import { createLogger } from "../../utils/logger";
 
-const logger = createLogger("Create-Products");
+const logger = createLogger("Get-Product-By-Id");
 
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  logger.info("Processing event in Create new product: ", event);
+  logger.info("Processing event in GetProducts: ", event);
 
   try {
     const authorization = event.headers.Authorization;
     const jwtToken = authorization.split(" ")[1];
     const userProfile = await getUserProfile(jwtToken);
 
-    const newOrder: OrderItems[] = JSON.parse(event.body);
-    const newOrderItem = await createOrder(newOrder, userProfile.userId);
+    const ordersByUserId = await getOrders(userProfile.userId);
 
     return {
       statusCode: 200,
@@ -30,7 +28,7 @@ export const handler: APIGatewayProxyHandler = async (
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        item: newOrderItem,
+        items: ordersByUserId,
       }),
     };
   } catch (error) {

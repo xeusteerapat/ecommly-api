@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "verify-account",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "verificationCode": {
+      "type": "string",
+      "minLength": 6
+    }
+  },
+  "required": ["email", "verificationCode"],
+  "additionalProperties": false
+}
