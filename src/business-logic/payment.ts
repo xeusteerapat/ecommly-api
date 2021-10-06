@@ -1,4 +1,3 @@
-import { Stripe } from "stripe";
 import StripeServiceWrapper from "../payment-services/stripe";
 import { Charging } from "./../models/Payment";
 
