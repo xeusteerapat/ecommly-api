@@ -4,11 +4,15 @@ export interface Order {
   orderItems: OrderItems[];
   createdAt: string;
   updatedAt: string;
+  status: string;
+  totalPrice: number;
 }
 
 export interface OrderItems {
   productId: string;
   quantity: number;
+  name: string;
+  price: number;
 }
 
 export interface CreateOrder {

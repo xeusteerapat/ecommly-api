@@ -7,6 +7,12 @@
       "productId": {
         "type": "string"
       },
+      "name": {
+        "type": "string"
+      },
+      "price": {
+        "type": "number"
+      },
       "quantity": {
         "type": "number"
       }
