@@ -9,6 +9,20 @@ This project is a simple ecommerce online shop using AWS Lambda and Serverless f
 1. Admin Role - as an admin can create/read/update/delete products.
 2. Customer Role - as a customer can visit products, create order and create payment.
 
+## Diagram
+
+![diagram](project-images/diagram.png)
+
+## Tech Stacks
+
+- Node.js
+- Typescript
+- Serverless Framework
+- AWS Lambda
+- AWS S3
+- AWS Cognito
+- DynamoDB
+
 ## Endpoints
 
 ### 1. Signup new user (I recommend you create the fake email using <https://10minemail.com/en/>)
