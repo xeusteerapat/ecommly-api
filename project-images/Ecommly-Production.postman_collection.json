@@ -1,0 +1,1465 @@
+{
+	"info": {
+		"_postman_id": "0087d773-b650-4ee2-9526-fc5a5c1c1d82",
+		"name": "Ecommly-Production",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Hello",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/hello",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"hello"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Hello",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_API_URL}}/hello",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"hello"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "43"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 04:59:28 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "37e9028e-efab-45ed-91ab-3d9dd789c6d1"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "GxP_kHJTyQ0Fb-A="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-615d2d30-1a61d5ad16860720185e47af"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 5230066306741527c1870ae028182b79.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "SIN2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "4NJY-EdEZt7PkWhGRsVXQL5T6N48pfoQiopFeJYZPUFTWFTZjvNYlg=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Hello, from Ecommly undefined\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create new product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ADMIN_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Adult UA Lockdown 5\",\n    \"price\": 99\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/products",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create new product",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Adult UA Lockdown 5\",\n    \"price\": 99\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/products",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "164"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 10:43:37 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "b83604a6-be8b-4a56-bd12-4dc22b584660"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "GyCaEHr3SQ0FhxQ="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-615d7dd9-272e15bf2414ef8e68083def"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 a29e907d5a7ced98e0f8ec2a4ffc01b4.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "SIN2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "xrZzgm5ZuQ_CBb9efIrxqnYUDJIXeZG_08PVbpBmZzNI_6Y09wMrhw=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"item\": {\n        \"productId\": \"O4aLQm9zyFl7rrJx6PJW1\",\n        \"createdAt\": \"2021-10-06T10:43:37.929Z\",\n        \"updatedAt\": \"2021-10-06T10:43:37.929Z\",\n        \"name\": \"Adult UA Lockdown 5\",\n        \"price\": 99\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Upload product image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ADMIN_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/products/IvBQ7SNNs3RnRKOpMrtwp/upload",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"products",
+								"IvBQ7SNNs3RnRKOpMrtwp",
+								"upload"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Upload product image",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_API_URL}}/products/O4aLQm9zyFl7rrJx6PJW1/upload",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"products",
+										"O4aLQm9zyFl7rrJx6PJW1",
+										"upload"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1222"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 10:45:21 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "05d34cf8-e769-4735-aa54-38ecb04d0f89"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "GyCqDFSjyQ0FYKA="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-615d7e40-0290c325740ec6390d0f6cb8"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 a29e907d5a7ced98e0f8ec2a4ffc01b4.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "SIN2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "hOnqncLhmkjP6vu12PQ7frDBsIa0Z52Zd0jUly0VB1hGUOBWb_YqmQ=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"uploadUrl\": \"https://ecommly-images-production.s3.ap-southeast-1.amazonaws.com/O4aLQm9zyFl7rrJx6PJW1?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA6JK756DTCYRANZV3%2F20211006%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20211006T104521Z&X-Amz-Expires=300&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhALw1lJSRaJBBxyPlZhhvr6TeEWA3PCZXdqsQetVivzDAAiAlIbcy9qHzdqqC3cgsSnT%2BI%2FVYzsNoW5AUEF7x6v5xPyqnAgh0EAAaDDk4MjEzODA4OTcwMiIM6%2BW303FYg%2FBbu1zXKoQCOfFOqMb%2FLdUtEUr4T6GfNfy0Fv1aWjXgP1zDaanRgjnyjeRNQHtuBYY6XUicwYSfuIBUgyDIpGBZxhac6u22tJQqBjQludtf6meqFDqVPtFvrVUfxcNyiCBcKOrfRrMke60kIHF2JvC2t%2FiECXoQ3SAk4gCdNZNr0GfMx1zBHOXvZ1cR8SEP%2FJGuK0dW%2BF7BA%2BzsEol0RKavty3mwGFp74yx5aXaPQ4t9l%2FVLK2Lo79R%2BR%2FnVDkQmNr9TeHktanxGJ3I%2BYBh1NxokopPawHu95FTlAOgraadRSg3xM92BGd8lBXScmcSn9cONzDvVNcEdc1dpedVSYFyNWNx2NZNerrGbnIwwPz1igY6mgGzWApy9bwBntE3bL4RAi0V8Hz9zDbb6tI2RGieWEC5z%2FD7kDGYbz2YoHCx3%2FBB%2FQBD2gIA6egUVO3oUFM2syCeMmwgpBW%2FSpJ84fEGAH1JGDEiuBOasYKDGFpRJo8XAbvneq%2B8wDCyKz65ybdT7jQ2u%2BEarkRpP7Q%2FBU6rDcFm8Lm4%2FbBJDFUYiEdEMSUIBCju3K54UZB8umfQ&X-Amz-Signature=f9655df3af993247281178ef238391f453412ff201d578be658090d6b6a531d3&X-Amz-SignedHeaders=host\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Upload PUT object",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": "/Users/teerapatprommarak/Downloads/Picture for dev test/ecommly/jordan_23_og.jpeg"
+							}
+						},
+						"url": {
+							"raw": "https://ecommly-images-production.s3.ap-southeast-1.amazonaws.com/IvBQ7SNNs3RnRKOpMrtwp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA6JK756DTCYRANZV3%2F20211006%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20211006T105343Z&X-Amz-Expires=300&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhALw1lJSRaJBBxyPlZhhvr6TeEWA3PCZXdqsQetVivzDAAiAlIbcy9qHzdqqC3cgsSnT%2BI%2FVYzsNoW5AUEF7x6v5xPyqnAgh0EAAaDDk4MjEzODA4OTcwMiIM6%2BW303FYg%2FBbu1zXKoQCOfFOqMb%2FLdUtEUr4T6GfNfy0Fv1aWjXgP1zDaanRgjnyjeRNQHtuBYY6XUicwYSfuIBUgyDIpGBZxhac6u22tJQqBjQludtf6meqFDqVPtFvrVUfxcNyiCBcKOrfRrMke60kIHF2JvC2t%2FiECXoQ3SAk4gCdNZNr0GfMx1zBHOXvZ1cR8SEP%2FJGuK0dW%2BF7BA%2BzsEol0RKavty3mwGFp74yx5aXaPQ4t9l%2FVLK2Lo79R%2BR%2FnVDkQmNr9TeHktanxGJ3I%2BYBh1NxokopPawHu95FTlAOgraadRSg3xM92BGd8lBXScmcSn9cONzDvVNcEdc1dpedVSYFyNWNx2NZNerrGbnIwwPz1igY6mgGzWApy9bwBntE3bL4RAi0V8Hz9zDbb6tI2RGieWEC5z%2FD7kDGYbz2YoHCx3%2FBB%2FQBD2gIA6egUVO3oUFM2syCeMmwgpBW%2FSpJ84fEGAH1JGDEiuBOasYKDGFpRJo8XAbvneq%2B8wDCyKz65ybdT7jQ2u%2BEarkRpP7Q%2FBU6rDcFm8Lm4%2FbBJDFUYiEdEMSUIBCju3K54UZB8umfQ&X-Amz-Signature=02cfbb4e0da75752ecdf5ed665b942eaecc5634eb2781af6d7aca3a40d2bc23a&X-Amz-SignedHeaders=host",
+							"protocol": "https",
+							"host": [
+								"ecommly-images-production",
+								"s3",
+								"ap-southeast-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"IvBQ7SNNs3RnRKOpMrtwp"
+							],
+							"query": [
+								{
+									"key": "X-Amz-Algorithm",
+									"value": "AWS4-HMAC-SHA256"
+								},
+								{
+									"key": "X-Amz-Credential",
+									"value": "ASIA6JK756DTCYRANZV3%2F20211006%2Fap-southeast-1%2Fs3%2Faws4_request"
+								},
+								{
+									"key": "X-Amz-Date",
+									"value": "20211006T105343Z"
+								},
+								{
+									"key": "X-Amz-Expires",
+									"value": "300"
+								},
+								{
+									"key": "X-Amz-Security-Token",
+									"value": "IQoJb3JpZ2luX2VjEPv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhALw1lJSRaJBBxyPlZhhvr6TeEWA3PCZXdqsQetVivzDAAiAlIbcy9qHzdqqC3cgsSnT%2BI%2FVYzsNoW5AUEF7x6v5xPyqnAgh0EAAaDDk4MjEzODA4OTcwMiIM6%2BW303FYg%2FBbu1zXKoQCOfFOqMb%2FLdUtEUr4T6GfNfy0Fv1aWjXgP1zDaanRgjnyjeRNQHtuBYY6XUicwYSfuIBUgyDIpGBZxhac6u22tJQqBjQludtf6meqFDqVPtFvrVUfxcNyiCBcKOrfRrMke60kIHF2JvC2t%2FiECXoQ3SAk4gCdNZNr0GfMx1zBHOXvZ1cR8SEP%2FJGuK0dW%2BF7BA%2BzsEol0RKavty3mwGFp74yx5aXaPQ4t9l%2FVLK2Lo79R%2BR%2FnVDkQmNr9TeHktanxGJ3I%2BYBh1NxokopPawHu95FTlAOgraadRSg3xM92BGd8lBXScmcSn9cONzDvVNcEdc1dpedVSYFyNWNx2NZNerrGbnIwwPz1igY6mgGzWApy9bwBntE3bL4RAi0V8Hz9zDbb6tI2RGieWEC5z%2FD7kDGYbz2YoHCx3%2FBB%2FQBD2gIA6egUVO3oUFM2syCeMmwgpBW%2FSpJ84fEGAH1JGDEiuBOasYKDGFpRJo8XAbvneq%2B8wDCyKz65ybdT7jQ2u%2BEarkRpP7Q%2FBU6rDcFm8Lm4%2FbBJDFUYiEdEMSUIBCju3K54UZB8umfQ"
+								},
+								{
+									"key": "X-Amz-Signature",
+									"value": "02cfbb4e0da75752ecdf5ed665b942eaecc5634eb2781af6d7aca3a40d2bc23a"
+								},
+								{
+									"key": "X-Amz-SignedHeaders",
+									"value": "host"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Upload PUT object",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "file",
+									"file": {
+										"src": "/Users/teerapatprommarak/Downloads/Picture for dev test/ecommly/jordan_23_og.jpeg"
+									}
+								},
+								"url": {
+									"raw": "https://ecommly-images-production.s3.ap-southeast-1.amazonaws.com/IvBQ7SNNs3RnRKOpMrtwp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA6JK756DTCYRANZV3%2F20211006%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20211006T105343Z&X-Amz-Expires=300&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhALw1lJSRaJBBxyPlZhhvr6TeEWA3PCZXdqsQetVivzDAAiAlIbcy9qHzdqqC3cgsSnT%2BI%2FVYzsNoW5AUEF7x6v5xPyqnAgh0EAAaDDk4MjEzODA4OTcwMiIM6%2BW303FYg%2FBbu1zXKoQCOfFOqMb%2FLdUtEUr4T6GfNfy0Fv1aWjXgP1zDaanRgjnyjeRNQHtuBYY6XUicwYSfuIBUgyDIpGBZxhac6u22tJQqBjQludtf6meqFDqVPtFvrVUfxcNyiCBcKOrfRrMke60kIHF2JvC2t%2FiECXoQ3SAk4gCdNZNr0GfMx1zBHOXvZ1cR8SEP%2FJGuK0dW%2BF7BA%2BzsEol0RKavty3mwGFp74yx5aXaPQ4t9l%2FVLK2Lo79R%2BR%2FnVDkQmNr9TeHktanxGJ3I%2BYBh1NxokopPawHu95FTlAOgraadRSg3xM92BGd8lBXScmcSn9cONzDvVNcEdc1dpedVSYFyNWNx2NZNerrGbnIwwPz1igY6mgGzWApy9bwBntE3bL4RAi0V8Hz9zDbb6tI2RGieWEC5z%2FD7kDGYbz2YoHCx3%2FBB%2FQBD2gIA6egUVO3oUFM2syCeMmwgpBW%2FSpJ84fEGAH1JGDEiuBOasYKDGFpRJo8XAbvneq%2B8wDCyKz65ybdT7jQ2u%2BEarkRpP7Q%2FBU6rDcFm8Lm4%2FbBJDFUYiEdEMSUIBCju3K54UZB8umfQ&X-Amz-Signature=02cfbb4e0da75752ecdf5ed665b942eaecc5634eb2781af6d7aca3a40d2bc23a&X-Amz-SignedHeaders=host",
+									"protocol": "https",
+									"host": [
+										"ecommly-images-production",
+										"s3",
+										"ap-southeast-1",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"IvBQ7SNNs3RnRKOpMrtwp"
+									],
+									"query": [
+										{
+											"key": "X-Amz-Algorithm",
+											"value": "AWS4-HMAC-SHA256"
+										},
+										{
+											"key": "X-Amz-Credential",
+											"value": "ASIA6JK756DTCYRANZV3%2F20211006%2Fap-southeast-1%2Fs3%2Faws4_request"
+										},
+										{
+											"key": "X-Amz-Date",
+											"value": "20211006T105343Z"
+										},
+										{
+											"key": "X-Amz-Expires",
+											"value": "300"
+										},
+										{
+											"key": "X-Amz-Security-Token",
+											"value": "IQoJb3JpZ2luX2VjEPv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhALw1lJSRaJBBxyPlZhhvr6TeEWA3PCZXdqsQetVivzDAAiAlIbcy9qHzdqqC3cgsSnT%2BI%2FVYzsNoW5AUEF7x6v5xPyqnAgh0EAAaDDk4MjEzODA4OTcwMiIM6%2BW303FYg%2FBbu1zXKoQCOfFOqMb%2FLdUtEUr4T6GfNfy0Fv1aWjXgP1zDaanRgjnyjeRNQHtuBYY6XUicwYSfuIBUgyDIpGBZxhac6u22tJQqBjQludtf6meqFDqVPtFvrVUfxcNyiCBcKOrfRrMke60kIHF2JvC2t%2FiECXoQ3SAk4gCdNZNr0GfMx1zBHOXvZ1cR8SEP%2FJGuK0dW%2BF7BA%2BzsEol0RKavty3mwGFp74yx5aXaPQ4t9l%2FVLK2Lo79R%2BR%2FnVDkQmNr9TeHktanxGJ3I%2BYBh1NxokopPawHu95FTlAOgraadRSg3xM92BGd8lBXScmcSn9cONzDvVNcEdc1dpedVSYFyNWNx2NZNerrGbnIwwPz1igY6mgGzWApy9bwBntE3bL4RAi0V8Hz9zDbb6tI2RGieWEC5z%2FD7kDGYbz2YoHCx3%2FBB%2FQBD2gIA6egUVO3oUFM2syCeMmwgpBW%2FSpJ84fEGAH1JGDEiuBOasYKDGFpRJo8XAbvneq%2B8wDCyKz65ybdT7jQ2u%2BEarkRpP7Q%2FBU6rDcFm8Lm4%2FbBJDFUYiEdEMSUIBCju3K54UZB8umfQ"
+										},
+										{
+											"key": "X-Amz-Signature",
+											"value": "02cfbb4e0da75752ecdf5ed665b942eaecc5634eb2781af6d7aca3a40d2bc23a"
+										},
+										{
+											"key": "X-Amz-SignedHeaders",
+											"value": "host"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "x-amz-id-2",
+									"value": "SaCDgPeUEdTJBxvQrv/LJhIQRceP/nJmHzLL7wZ8UvA2ewa1elhvR+rnAKtPwPE7DlfVfULmICg="
+								},
+								{
+									"key": "x-amz-request-id",
+									"value": "ZWW774YHZZTRGBKK"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 10:54:02 GMT"
+								},
+								{
+									"key": "ETag",
+									"value": "\"047d272970f6ef0401c72fbb73c8f718\""
+								},
+								{
+									"key": "Server",
+									"value": "AmazonS3"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Update product by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ADMIN_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\": 269.00,\n    \"name\": \"Reebok-Answer 1 AI\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/products/To_ZOEH08WnHAsnx2UPaQ",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"products",
+								"To_ZOEH08WnHAsnx2UPaQ"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update product by id",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"price\": 269.00,\n    \"name\": \"Reebok-Answer 1 AI\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/products/To_ZOEH08WnHAsnx2UPaQ",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"products",
+										"To_ZOEH08WnHAsnx2UPaQ"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "165"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 10:56:09 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "fc6d92c1-f39a-447f-b8ad-cc7dddab018d"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "GyEPSEKhyQ0Fb-A="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-615d80c8-5018dd61496c06cf1eb98472"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 3227fb8d08d4021d78aad88753ced298.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "SIN2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "SO_LYNCEZmFT8QTf6KHoZAs_CudpZaQazxplRMY2huaqIwcFq7YihA=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"items\": {\n        \"createdAt\": \"2021-10-06T10:41:30.170Z\",\n        \"price\": 269,\n        \"name\": \"Reebok-Answer 1 AI\",\n        \"productId\": \"To_ZOEH08WnHAsnx2UPaQ\",\n        \"updatedAt\": \"2021-10-06T10:41:30.170Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete product by Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ADMIN_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/products/O4aLQm9zyFl7rrJx6PJW1",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"products",
+								"O4aLQm9zyFl7rrJx6PJW1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete product by Id",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_API_URL}}/products/O4aLQm9zyFl7rrJx6PJW1",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"products",
+										"O4aLQm9zyFl7rrJx6PJW1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "266"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 10:58:02 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "84cb8381-3c26-4d79-8c5c-a8e50acdc11b"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "GyEg-HTkyQ0FqQg="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-615d8139-264924d56a33ab9128a43165"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 3227fb8d08d4021d78aad88753ced298.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "SIN2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "5a42ndQFRdI2XZCwDPnvowggggFk0tlVCyU75IQJIOWNnkwBSPBnwg=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"items\": {\n        \"imageUrl\": \"https://ecommly-images-production.s3.ap-southeast-1.amazonaws.com/O4aLQm9zyFl7rrJx6PJW1\",\n        \"updatedAt\": \"2021-10-06T10:43:37.929Z\",\n        \"createdAt\": \"2021-10-06T10:43:37.929Z\",\n        \"price\": 99,\n        \"name\": \"Adult UA Lockdown 5\",\n        \"productId\": \"O4aLQm9zyFl7rrJx6PJW1\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get product by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ADMIN_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/products/kVAGBXseyxIs4iWgZQoxV",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"products",
+								"kVAGBXseyxIs4iWgZQoxV"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get product by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_API_URL}}/products/kVAGBXseyxIs4iWgZQoxV",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"products",
+										"kVAGBXseyxIs4iWgZQoxV"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "170"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 11:01:00 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "ab42286d-c40a-4335-99f2-55f4f8459b21"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "GyE80EQ4SQ0FRjw="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-615d81eb-1405398a16ff244242a38aa7"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 3227fb8d08d4021d78aad88753ced298.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "SIN2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "u36yE5gXaja21y7JqtwOqjymvv4057GSE0YuuFZGUyROPLxpaih8Ug=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"items\": {\n        \"createdAt\": \"2021-10-06T10:39:26.234Z\",\n        \"price\": 210,\n        \"name\": \"Nike Zoom Kobe 1 Protro\",\n        \"productId\": \"kVAGBXseyxIs4iWgZQoxV\",\n        \"updatedAt\": \"2021-10-06T10:39:26.234Z\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create new order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{CUSTOMER_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"productId\": \"kVAGBXseyxIs4iWgZQoxV\",\n        \"quantity\": 1,\n        \"name\": \"Nike Zoom Kobe 1 Protro\",\n        \"price\": 210\n    },\n    {\n        \"productId\": \"64PHENWda2KBjChRK20eC\",\n        \"quantity\": 1,\n        \"name\": \"Nike Air Zoom Generation QS\",\n        \"price\": 260\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/orders",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create new order",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"productId\": \"kVAGBXseyxIs4iWgZQoxV\",\n        \"quantity\": 1,\n        \"name\": \"Nike Zoom Kobe 1 Protro\",\n        \"price\": 210\n    },\n    {\n        \"productId\": \"64PHENWda2KBjChRK20eC\",\n        \"quantity\": 1,\n        \"name\": \"Nike Air Zoom Generation QS\",\n        \"price\": 260\n    }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/orders",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "417"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 11:03:35 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "49d7ce02-c81d-42af-8051-47ccbc7e29b6"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "GyFU7Hy5SQ0FrSw="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-615d8285-0e4f236959dae2dd07e75110"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 3227fb8d08d4021d78aad88753ced298.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "SIN2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "DMh82iLOromwV02nj2Jr8AALhTTZTs9QT84ybCRl6leUgEFnnnPk1g=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"item\": {\n        \"userId\": \"bc45aeea-9045-4a46-a138-06e623ede5d2\",\n        \"orderId\": \"9Oq58KUUoy9nuBdfjYHky\",\n        \"createdAt\": \"2021-10-06T11:03:35.322Z\",\n        \"updatedAt\": \"2021-10-06T11:03:35.322Z\",\n        \"orderItems\": [\n            {\n                \"productId\": \"kVAGBXseyxIs4iWgZQoxV\",\n                \"quantity\": 1,\n                \"name\": \"Nike Zoom Kobe 1 Protro\",\n                \"price\": 210\n            },\n            {\n                \"productId\": \"64PHENWda2KBjChRK20eC\",\n                \"quantity\": 1,\n                \"name\": \"Nike Air Zoom Generation QS\",\n                \"price\": 260\n            }\n        ],\n        \"status\": \"pending\",\n        \"totalPrice\": 470\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create payment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{CUSTOMER_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 470,\n    \"currency\": \"usd\",\n    \"description\": \"Second payment for ecommly\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/payment/9Oq58KUUoy9nuBdfjYHky",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"payment",
+								"9Oq58KUUoy9nuBdfjYHky"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create payment",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount\": 470,\n    \"currency\": \"usd\",\n    \"description\": \"Second payment for ecommly\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/payment/9Oq58KUUoy9nuBdfjYHky",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"payment",
+										"9Oq58KUUoy9nuBdfjYHky"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "115"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 11:05:29 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "22870f9c-aae0-43ee-84d7-83b569bdb9a5"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "GyFmjG52SQ0FfHQ="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-615d82f6-39fe018506a7b49b7fcef804"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 3227fb8d08d4021d78aad88753ced298.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "SIN2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "0H0H-YZiWrKPf_NFnakofP2-lySEapjeVBD4my6_kUP7JncSRY6vQg=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"result\": {\n        \"orderId\": \"9Oq58KUUoy9nuBdfjYHky\",\n        \"userId\": \"bc45aeea-9045-4a46-a138-06e623ede5d2\",\n        \"status\": \"succeeded\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Admin Signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@ecommly.com\",\n    \"password\": \"Ecommly@@001DevTest\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/signin",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Admin Signin",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@ecommly.com\",\n    \"password\": \"Ecommly@@001DevTest\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/signin",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"signin"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1263"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 08:09:09 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "61f0a2ac-8bb7-46e0-b937-0358302ab235"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "GxrxpH1MyQ0Fhrw="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-615d59a3-15244aee59eff08d589b8dc0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 c8c43b7bd0e92cbb9fbe171dc985f060.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "SIN2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "JpzumqXGbFJoCfc3jiK94MCV0yregoXl7EXvRTE02wrJN1oxe_bKVg=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"result\": {\n        \"statusCode\": 200,\n        \"token\": \"eyJraWQiOiI3bGd3SVdaOGwrUUk4SWx5MndDRXFmTlwvdVMzMkpZajNDcGhyYk1FYVU2VT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJlYzk4NTMwZS1kZDBlLTQxMDktYWUxZS0zMjdmZGVhN2QwMGMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmFwLXNvdXRoZWFzdC0xLmFtYXpvbmF3cy5jb21cL2FwLXNvdXRoZWFzdC0xX1JwdDVlM0JhQyIsInBob25lX251bWJlcl92ZXJpZmllZCI6dHJ1ZSwiY29nbml0bzp1c2VybmFtZSI6ImVjOTg1MzBlLWRkMGUtNDEwOS1hZTFlLTMyN2ZkZWE3ZDAwYyIsIm9yaWdpbl9qdGkiOiIyYTcyZTlmMi1hMjE1LTRlYWMtYjg2NS00ZTcyNzE3NGNjMTciLCJhdWQiOiIzbm0xbmhzZmRuN2w1dW83YmViNGdpNmI4YiIsImV2ZW50X2lkIjoiNzI5MjI0MjUtYTU0ZC00NmJjLTk1NjQtMjNlMWExMTI4ZTEzIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2MzM1MDc3NDksInBob25lX251bWJlciI6Iis2Njk5OTk5OTk5OSIsImV4cCI6MTYzMzUxMTM0OSwiaWF0IjoxNjMzNTA3NzQ5LCJqdGkiOiJmNDE2ZWFiOC1kN2MzLTQ4ZTMtODNkYS1lZDFhMDc1ODY3ZTciLCJlbWFpbCI6ImFkbWluQGVjb21tbHkuY29tIn0.DQl0wq2K9CL8iJoZTu6Z06NEwPTuJANyOfH1FsmlZO4zdROz6rHmoCTWtcX-4FGUwMbTnv6Mej8fNxJpElHCrwVoJPQIPxWrigr1t8CCnkPsJSCTz_rAt85DpOEY4UyxSZPCHbHWAAJ03FSofhByk40SZNnrWLFLV5w2uqEdb0y1fW5nJ40PN6oL2AdxW_dHanZvUvK670wjz5sq4rr5wzkOjM10X6bgssuDNxU8zyqdbJ1GnrdGMoNLe_Pyh_AQ22VPAiI_fls-0bAEjZQMEf_CFjF49NK9vXOFlbnGgmjHxS4Q_fxWtZi5S4ZRlEWRn0i8rG4vrGk8Tw6MV9pfQQ\",\n        \"userId\": \"ec98530e-dd0e-4109-ae1e-327fdea7d00c\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Customer signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"kiriyox476@ncdainfo.com\",\n    \"password\": \"Cyan$$001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/signup",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Customer signup",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"kiriyox476@ncdainfo.com\",\n    \"password\": \"Cyan$$001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/signup",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"signup"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "104"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 10:09:44 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "b712fcc7-1043-4926-8749-2916884436a5"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "Gx9cMEEsSQ0Fepw="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-615d75e7-328fc5d102a980d81d424635"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 456e9698bd1002705d9e83bb010ea4fd.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "SIN2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "YT9ZtGxNOPtzczJ8HpoD-ax4PKyazJ3sE_XOnz99jyVGXv4f4_vwsQ=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"result\": {\n        \"statusCode\": 200,\n        \"email\": \"kiriyox476@ncdainfo.com\",\n        \"message\": \"User successfully registered\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Verify user account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"xeus085@gmail.com\",\n    \"verificationCode\": \"505442\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/confirmed",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"confirmed"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Verify user account",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"xeus085@gmail.com\",\n    \"verificationCode\": \"505442\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/confirmed",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"confirmed"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 10:18:35 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "f5cbc291-8d60-40d2-bd24-97b2b6fc5e7b"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "Gx-vNEXWSQ0Fhsw="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-615d77fa-02058db51cdd63e955360618"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 456e9698bd1002705d9e83bb010ea4fd.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "SIN2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "513WTMdg3ouQ3Kpembat2rmCGC3Ogkr5BLAssvu7cNr_emtXoq7mLQ=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"result\": {\n        \"statusCode\": 200,\n        \"response\": \"SUCCESS\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "User signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"xeus085@gmail.com\",\n    \"password\": \"Cyan$$001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/signin",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User signin",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"xeus085@gmail.com\",\n    \"password\": \"Cyan$$001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/signin",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"signin"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1506"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 06 Oct 2021 10:20:28 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "b5b3ed29-f5c3-486c-a398-081fe5f5148f"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "Gx_AwHVKyQ0Fhrw="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-615d786b-08c0e9b7583ac30365a027d8"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 456e9698bd1002705d9e83bb010ea4fd.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "SIN2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "xMr1n3162WhehAoQBAvSO_CdJkrDWghZ7zRQ0iVFihEoWMUXJI5PNg=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"result\": {\n        \"statusCode\": 200,\n        \"token\": \"eyJraWQiOiI3bGd3SVdaOGwrUUk4SWx5MndDRXFmTlwvdVMzMkpZajNDcGhyYk1FYVU2VT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJiYzQ1YWVlYS05MDQ1LTRhNDYtYTEzOC0wNmU2MjNlZGU1ZDIiLCJjb2duaXRvOmdyb3VwcyI6WyJDdXN0b21lci1wcm9kdWN0aW9uIl0sImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJjb2duaXRvOnByZWZlcnJlZF9yb2xlIjoiYXJuOmF3czppYW06Ojk4MjEzODA4OTcwMjpyb2xlXC9lY29tbWx5LWN1c3RvbWVyLXJvbGUtcHJvZHVjdGlvbiIsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aGVhc3QtMV9ScHQ1ZTNCYUMiLCJjb2duaXRvOnVzZXJuYW1lIjoiYmM0NWFlZWEtOTA0NS00YTQ2LWExMzgtMDZlNjIzZWRlNWQyIiwib3JpZ2luX2p0aSI6IjcxOTU5MTQ0LTUyZDItNDRjOC1iYzcxLTczOTZmNzE0MGZhYiIsImNvZ25pdG86cm9sZXMiOlsiYXJuOmF3czppYW06Ojk4MjEzODA4OTcwMjpyb2xlXC9lY29tbWx5LWN1c3RvbWVyLXJvbGUtcHJvZHVjdGlvbiJdLCJhdWQiOiIzbm0xbmhzZmRuN2w1dW83YmViNGdpNmI4YiIsImV2ZW50X2lkIjoiOGEyN2E5OTAtODZhZi00NjM0LWJlMDMtNWNiNzkxNTM1YmRmIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2MzM1MTU2MjgsImV4cCI6MTYzMzUxOTIyOCwiaWF0IjoxNjMzNTE1NjI4LCJqdGkiOiIyODdjYmI1Ni03NjYxLTQ4ZWMtYTdkMC1kMzgwM2MwMGMxNGEiLCJlbWFpbCI6InhldXMwODVAZ21haWwuY29tIn0.C4KjqLWsVi-3lHNK5yFw2cSUWzXg1xGcAdTywRoJuZm6glPhCLOpPkdxzDDWu2ry4Xea-N3rE6EXEnwG8UbQqXqqaiMXo2ylyM0NA1rSkV8A-8MAe3E_5G_FYkwAp9hOpuMWsmgJViqXYLPKyZjodzWbf0HgQZ-_zpCGZT67rqZ5ZaRFENl3CLDh0AVx-wmxrm3TVQl9gaEjjHFklRzznQ3-oE-YpIoFwmeIFYsW5CNNe7fLQfSovjKxOsfpS4nOvn3EVtwYb36LRVGeZH7psFZesbEh5wxqVES6jx9tW5UTKeICfCIFTyj6ps_-yvlSzYrFVOQrwI3hiG3aNT4COw\",\n        \"userId\": \"bc45aeea-9045-4a46-a138-06e623ede5d2\",\n        \"role\": [\n            \"Customer-production\"\n        ]\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
