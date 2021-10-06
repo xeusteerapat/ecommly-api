@@ -24,6 +24,7 @@ provider:
     USER_POOL_CLIENT_ID: ${self:custom.USER_POOL_CLIENT_ID}
     ADMIN_GROUP: Admin-${self:provider.stage}
     CUSTOMER_GROUP: Customer-${self:provider.stage}
+    STRIPE_SECRET_KEY: ${self:custom.STRIPE_SECRET_KEY}
   tracing:
     apiGateway: true
     lambda: true
@@ -35,6 +36,7 @@ custom:
   TEST_SECRET: ${ssm:test-${self:provider.stage}-secret}
   USER_POOL_ID: ${ssm:userpool-${self:provider.stage}-id}
   USER_POOL_CLIENT_ID: ${ssm:client-${self:provider.stage}-id}
+  STRIPE_SECRET_KEY: ${ssm:stripe-secret-key}
   documentation:
     api:
       info:
@@ -233,6 +235,18 @@ functions:
       #   Action:
       #     - dynamodb:Query
       #   Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}/index/byOrder
+  # Payment
+  payment:
+    handler: src/lambda/payment/payToOrder.handler
+    events:
+      - http:
+          method: post
+          path: payment/{orderId}
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
   # Images
   uploadImage:
     handler: src/lambda/images/generateUploadUrl.handler
