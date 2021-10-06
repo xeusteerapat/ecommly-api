@@ -25,7 +25,7 @@ export const handler: APIGatewayProxyHandler = async (
     const newOrderItem = await createOrder(newOrder, userProfile.userId);
 
     return {
-      statusCode: 200,
+      statusCode: 201,
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
