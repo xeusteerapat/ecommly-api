@@ -44,6 +44,15 @@ custom:
         title: Ecommly API
         description: Serverless Ecommerce Application
     models:
+      - name: "SignupRequest"
+        contentType: application/json
+        schema: ${file(request-validators/signup-request.json)}
+      - name: "SigninRequest"
+        contentType: application/json
+        schema: ${file(request-validators/signin-request.json)}
+      - name: "VerifyAccountRequest"
+        contentType: application/json
+        schema: ${file(request-validators/verify-request.json)}
       - name: "CreateProductRequest"
         contentType: application/json
         schema: ${file(request-validators/create-product-request.json)}
@@ -53,6 +62,9 @@ custom:
       - name: "CreateOrderRequest"
         contentType: application/json
         schema: ${file(request-validators/create-order-request.json)}
+      - name: "PaymentRequest"
+        contentType: application/json
+        schema: ${file(request-validators/payment-request.json)}
 
 functions:
   hello:
@@ -68,18 +80,33 @@ functions:
       - http:
           method: post
           path: signup
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Signup new user
+            requestModels:
+              "application/json": SignupRequest
   signin:
     handler: src/lambda/auth/signin.handler
     events:
       - http:
           method: post
           path: signin
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Signin user
+            requestModels:
+              "application/json": SigninRequest
   postConfirmed:
     handler: src/lambda/auth/postConfirmed.handler
     events:
       - http:
           method: post
           path: confirmed
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Confirm verification code
+            requestModels:
+              "application/json": VerifyAccountRequest
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -247,6 +274,11 @@ functions:
             type: COGNITO_USER_POOLS
             authorizerId:
               Ref: ApiGatewayAuthorizer
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create new payment
+            requestModels:
+              "application/json": PaymentRequest
     iamRoleStatements:
       - Effect: Allow
         Action:
