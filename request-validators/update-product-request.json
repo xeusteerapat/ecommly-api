@@ -6,7 +6,7 @@
     "name": {
       "type": "string",
       "minLength": 3,
-      "maxLength": 20
+      "maxLength": 40
     },
     "price": {
       "type": "number"
