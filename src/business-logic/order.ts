@@ -17,12 +17,18 @@ export async function createOrder(
 ): Promise<Order> {
   logger.info(`Create new product`);
 
+  const totalPrice = newOrder.reduce((price: number, item: OrderItems) => {
+    return price + item.price * item.quantity;
+  }, 0);
+
   const newOrderItem: Order = {
     userId,
     orderId: nanoid(),
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     orderItems: newOrder,
+    status: "pending",
+    totalPrice: totalPrice,
   };
 
   return await order.createOrder(newOrderItem);
