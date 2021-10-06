@@ -24,14 +24,14 @@ class StripeServiceWrapper {
     return token;
   }
 
-  async createCharge(newChargeObj: Charging, token: any) {
+  async createCharge(newChargeObj: Charging, tokenId: string) {
     const { amount, currency, description } = newChargeObj;
 
     const charge = await this.stripe.charges.create({
       amount,
       currency,
       description,
-      source: token,
+      source: tokenId,
     });
 
     return charge;

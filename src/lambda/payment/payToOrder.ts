@@ -26,7 +26,7 @@ export const handler: APIGatewayProxyHandler = async (
     const orderId = event.pathParameters.orderId;
     const token = await createCreditCardToken();
 
-    const newCharges = await createCharge(JSON.parse(event.body), token);
+    const newCharges = await createCharge(JSON.parse(event.body), token.id);
 
     const paymentResult = {
       orderId,

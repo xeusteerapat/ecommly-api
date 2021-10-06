@@ -18,8 +18,8 @@ export async function createCreditCardToken() {
  * Create charge
  * @returns charge
  */
-export async function createCharge(charge: Charging, token: Stripe.Token) {
-  const charges = await payment.createCharge(charge, token);
+export async function createCharge(charge: Charging, tokenId: string) {
+  const charges = await payment.createCharge(charge, tokenId);
 
   return charges;
 }
