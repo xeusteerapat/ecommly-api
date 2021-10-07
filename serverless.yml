@@ -120,10 +120,10 @@ functions:
           method: get
           path: products
           cors: true
-          authorizer:
-            type: COGNITO_USER_POOLS
-            authorizerId:
-              Ref: ApiGatewayAuthorizer
+          # authorizer:
+          #   type: COGNITO_USER_POOLS
+          #   authorizerId:
+          #     Ref: ApiGatewayAuthorizer
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -137,10 +137,10 @@ functions:
           method: get
           path: products/{productId}
           cors: true
-          authorizer:
-            type: COGNITO_USER_POOLS
-            authorizerId:
-              Ref: ApiGatewayAuthorizer
+          # authorizer:
+          #   type: COGNITO_USER_POOLS
+          #   authorizerId:
+          #     Ref: ApiGatewayAuthorizer
     iamRoleStatements:
       - Effect: Allow
         Action:
