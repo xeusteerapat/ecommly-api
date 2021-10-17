@@ -12,7 +12,7 @@ const logger = createLogger("Get-Products");
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  logger.info("Processing event in GetProducts: ", event);
+  logger.info("Processing event in Get Products: ", event);
 
   try {
     const products = await getProducts();

@@ -120,3 +120,4 @@ dist
 
 .metals
 .vscode
+.DS_Store
