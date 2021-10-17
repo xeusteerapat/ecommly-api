@@ -2,8 +2,8 @@ service:
   name: ecommly-api
 
 plugins:
-  # - serverless-webpack
-  - serverless-esbuild
+  - serverless-webpack
+  # - serverless-esbuild
   - serverless-stage-manager
   - serverless-iam-roles-per-function
   - serverless-aws-documentation
