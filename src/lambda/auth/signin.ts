@@ -44,7 +44,7 @@ async function signinUser(body: SignInRequest) {
         });
       },
       onFailure: function (err) {
-        console.log(err);
+        
 
         return resolve({
           statusCode: 401,
